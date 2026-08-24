@@ -27,7 +27,7 @@ const setAuthCookies = async ({
   });
 };
 
-export const RegisterActions = async (
+export const registerActions = async (
   prevState: RegisterState,
   formData: FormData,
 ) => {
@@ -89,7 +89,7 @@ export const loginActions = async (
   redirect("/dashboard");
 };
 
-export const LogoutActions = async () => {
+export const logoutActions = async () => {
   const cookie = await cookies();
 
   cookie.delete("accessToken");

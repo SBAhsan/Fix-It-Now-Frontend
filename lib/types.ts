@@ -5,5 +5,13 @@ export type RegisterState = {
 
 export type LoginState = {
     success: boolean,
-    message: string
+    message?: string
+}
+
+export type User = {
+    name: string,
+    email: string,
+    password: string,
+    phone: string,
+    role: "ADMIN" | "TECHNICIAN" | "CUSTOMER"
 }
