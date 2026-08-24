@@ -1,10 +1,16 @@
-export const api = async (pathURL: string, options) => {
+
+
+export const api = async (pathURL: string, options : RequestInit) => {
     try {
+
+        const {headers, ...rest} = options;
+
         const res = await fetch(`${process.env.API_URL}${pathURL}`, {
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                ...headers
             },
-            ...options
+            ...rest
         });
 
         if(!res.ok) {

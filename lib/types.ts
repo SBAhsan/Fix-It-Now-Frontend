@@ -8,10 +8,12 @@ export type LoginState = {
     message?: string
 }
 
+export type Role = "ADMIN" | "TECHNICIAN" | "CUSTOMER"
+
 export type User = {
     name: string,
     email: string,
     password: string,
     phone: string,
-    role: "ADMIN" | "TECHNICIAN" | "CUSTOMER"
+    role: Role
 }

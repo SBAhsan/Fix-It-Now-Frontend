@@ -1,2 +1,3 @@
-/api/auth/register => (auth)/_actions/authActions.ts
-/api/auth/login => (auth)/_actions/authActions.ts
+/api/auth/register =>  app/(auth)/_actions/authActions.ts
+/api/auth/login    =>  app/(auth)/_actions/authActions.ts
+/api/auth/me       =>  service/getMe.ts

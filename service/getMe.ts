@@ -1,4 +1,5 @@
 import { api } from "@/lib/api";
+import { decodeToken } from "@/lib/jwt";
 import { User } from "@/lib/types";
 import { cookies } from "next/headers";
 
@@ -7,6 +8,8 @@ export const getMe = async () : Promise<User | null> => {
     const cookie = await cookies();
 
     const token = cookie.get("accessToken")?.value;
+
+    console.log("access token: ", token);
 
     if(!token) return null;
 
@@ -17,7 +20,9 @@ export const getMe = async () : Promise<User | null> => {
         }
     })
 
-    if(!res.success) return null;
+    console.log("The response is: ", res);
 
-    return res.data.user;
+    if(res.success) return res.data.user;
+
+    return decodeToken(token) as User;
 }
