@@ -1,9 +1,16 @@
 "use server";
 
 import { api } from "@/lib/api";
-import { LoginState, RegisterState } from "@/lib/types";
+import { verifyToken } from "@/lib/jwt";
+import { LoginState, RegisterState, User } from "@/lib/types";
+import { JwtPayload } from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+
+type DecodedTokenPayload = {
+  success: boolean;
+  data: User;
+};
 
 const setAuthCookies = async ({
   accessToken,
@@ -25,6 +32,13 @@ const setAuthCookies = async ({
     maxAge: 60 * 60 * 24,
     sameSite: "lax",
   });
+
+  const verifiedAccessToken = verifyToken(
+    accessToken,
+    process.env.JWT_ACCESS_SECRET as string,
+  ) as JwtPayload;
+
+  return verifiedAccessToken;
 };
 
 export const registerActions = async (
@@ -60,9 +74,23 @@ export const registerActions = async (
     }),
   });
 
-  await setAuthCookies(login.data);
+  const user = (await setAuthCookies(login.data)) as DecodedTokenPayload;
+  const role = user.data.role;
 
-  redirect("/dashboard");
+  console.log("Type of role value: ", typeof role);
+
+  if (role === "ADMIN") {
+    redirect("/admin-dashboard");
+  } else if (role === "TECHNICIAN") {
+    redirect("/technician-dashboard");
+  } else if (role === "CUSTOMER") {
+    redirect("/dashboard");
+  } else {
+    return {
+      success: false,
+      message: "Unknown user role",
+    };
+  }
 };
 
 export const loginActions = async (
@@ -77,6 +105,8 @@ export const loginActions = async (
     }),
   });
 
+  console.log("Response: ", res);
+
   if (!res.success) {
     return {
       success: false,
@@ -84,9 +114,24 @@ export const loginActions = async (
     };
   }
 
-  await setAuthCookies(res.data);
+  const user = (await setAuthCookies(res.data)) as DecodedTokenPayload;
+  const role = user.data.role;
 
-  redirect("/dashboard");
+  console.log("The role of current user is: ", role);
+  console.log("Type of role value: ", typeof role);
+
+  if (role === "ADMIN") {
+    redirect("/admin-dashboard");
+  } else if (role === "TECHNICIAN") {
+    redirect("/technician-dashboard");
+  } else if (role === "CUSTOMER") {
+    redirect("/dashboard");
+  } else {
+    return {
+      success: false,
+      message: "Unknown user role",
+    };
+  }
 };
 
 export const logoutActions = async () => {

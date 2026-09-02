@@ -1,6 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import jwt from "jsonwebtoken";
-import { User } from "./types";
 
-export const decodeToken = (token: string) => {
-    return jwt.decode(token) as User;
-}
+export const verifyToken = (token: string, secret: string) => {
+  try {
+    const verifiedToken = jwt.verify(token, secret);
+
+    return {
+      success: true,
+      data: verifiedToken,
+    };
+  } catch (error: any) {
+    console.log("Token verification failed", error);
+
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+};

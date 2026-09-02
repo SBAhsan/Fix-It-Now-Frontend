@@ -19,7 +19,8 @@ const LoginForm = () => {
   useEffect(() => {
     if(state.message && !state.success){
       toast.add({
-        title: state.message
+        type: "error",
+        title: state.message,
       })
     }
   }, [state])
