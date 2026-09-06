@@ -20,18 +20,21 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import logo from "../../../../public/fix-it-now-logo.jpg"
 import Image from "next/image";
+import { User } from "@/lib/types";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
-type NavItem = { label: string; icon: typeof LayoutDashboard; badge?: string };
+type NavItem = { label: string; icon: typeof LayoutDashboard; badge?: string; href: string };
 
 const mainItems: NavItem[] = [
-  { label: "Overview", icon: LayoutDashboard },
-  { label: "User management", icon: Users },
-  { label: "Category management", icon: Tag },
+  { label: "Overview", icon: LayoutDashboard, href: "/admin-dashboard" },
+  { label: "User management", icon: Users, href: "/admin-dashboard/users" },
+  { label: "Category management", icon: Tag, href: "/admin-dashboard/categories" },
 ];
 
 const serviceItems: NavItem[] = [
-  { label: "Service oversight", icon: ClipboardList, badge: "12" },
-  { label: "Technician moderation", icon: ShieldCheck },
+  { label: "Service oversight", icon: ClipboardList, href: "/admin-dashboard/services", badge: "12" },
+  { label: "Technician moderation", icon: ShieldCheck, href: "/admin-dashboard/technicians" },
 ];
 
 function NavSection({
@@ -45,6 +48,9 @@ function NavSection({
   active: string;
   onSelect: (label: string) => void;
 }) {
+
+  const pathName = usePathname();
+
   return (
     <div className="flex flex-col gap-2">
       <p className="px-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-sidebar-foreground/45">
@@ -53,12 +59,11 @@ function NavSection({
       <nav aria-label={label} className="flex flex-col gap-1">
         {items.map((item) => {
           const Icon = item.icon;
-          const isActive = active === item.label;
+          const isActive = pathName === item.href;
           return (
-            <button
+            <Link
               key={item.label}
-              type="button"
-              onClick={() => onSelect(item.label)}
+              href={item.href}
               aria-current={isActive ? "page" : undefined}
               className={cn(
                 "group flex min-h-10 items-center gap-3 rounded-lg px-3 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring",
@@ -70,18 +75,9 @@ function NavSection({
               <Icon className="size-4 shrink-0" aria-hidden="true" />
               <span className="flex-1 truncate">{item.label}</span>
               {item.badge ? (
-                <span
-                  className={cn(
-                    "rounded-full px-1.5 py-0.5 text-[10px] font-bold",
-                    isActive
-                      ? "bg-sidebar-primary-foreground/15"
-                      : "bg-sidebar-accent text-sidebar-foreground/60",
-                  )}
-                >
-                  {item.badge}
-                </span>
+                <span className={cn(/* ... */)}>{item.badge}</span>
               ) : null}
-            </button>
+            </Link>
           );
         })}
       </nav>
@@ -89,7 +85,8 @@ function NavSection({
   );
 }
 
-export function AdminSidebar() {
+export function AdminSidebar({user} : {user : User}) {
+
   const [active, setActive] = useState("Overview");
   const [open, setOpen] = useState(false);
 
@@ -147,12 +144,16 @@ export function AdminSidebar() {
         </div>
         <div className="flex items-center gap-3 border-b border-sidebar-border px-5 py-5">
           <div className="flex size-10 items-center justify-center rounded-full bg-sidebar-primary/15 text-sm font-bold text-sidebar-primary">
-            AM
+            {user?.name
+                    .split(" ")
+                    .map((part: string) => part[0])
+                    .join("")
+                    .toUpperCase()}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-semibold">Alex Morgan</p>
+            <p className="truncate text-sm font-semibold">{user?.name}</p>
             <p className="truncate text-xs text-sidebar-foreground/50">
-              Administrator
+              {user?.role}
             </p>
           </div>
           <ChevronDown
@@ -202,53 +203,4 @@ export function AdminSidebar() {
   );
 }
 
-export function ServicePlaceholder() {
-  return (
-    <div className="flex flex-col gap-6 p-6 md:p-8">
-      <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-sidebar-primary">
-          Good morning, Alex
-        </p>
-        <h2 className="text-3xl font-semibold tracking-tight text-balance">
-          Keep every job moving.
-        </h2>
-        <p className="max-w-xl text-sm leading-6 text-muted-foreground">
-          Your admin workspace for coordinating customers, technicians, and the
-          services that connect them.
-        </p>
-      </div>
-      <div className="grid gap-4 sm:grid-cols-3">
-        <div className="rounded-xl border border-border bg-card p-5">
-          <p className="text-sm text-muted-foreground">Active requests</p>
-          <p className="mt-3 text-3xl font-semibold">24</p>
-          <p className="mt-2 text-xs text-sidebar-primary">+8% this week</p>
-        </div>
-        <div className="rounded-xl border border-border bg-card p-5">
-          <p className="text-sm text-muted-foreground">Technicians online</p>
-          <p className="mt-3 text-3xl font-semibold">18</p>
-          <p className="mt-2 text-xs text-muted-foreground">
-            Across 4 service areas
-          </p>
-        </div>
-        <div className="rounded-xl border border-border bg-card p-5">
-          <p className="text-sm text-muted-foreground">Open moderation</p>
-          <p className="mt-3 text-3xl font-semibold">07</p>
-          <p className="mt-2 text-xs text-destructive">Needs your attention</p>
-        </div>
-      </div>
-      <div className="rounded-xl border border-dashed border-border bg-card/60 p-8 text-center">
-        <FolderKanban
-          className="mx-auto size-8 text-sidebar-primary"
-          aria-hidden="true"
-        />
-        <h3 className="mt-4 font-semibold">
-          Overview modules are ready to grow
-        </h3>
-        <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground">
-          This space will become your command center. We can add live requests,
-          performance trends, and moderation queues one component at a time.
-        </p>
-      </div>
-    </div>
-  );
-}
+

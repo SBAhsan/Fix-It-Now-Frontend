@@ -2,14 +2,15 @@
 
 import { Bell, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { User } from "@/lib/types";
 
-export function AdminTopbar({ title, userName }: { title: string, userName: string }) {
+export function AdminTopbar({ user, title }: { user: User, title: string }) {
   return (
     <div className="">
         <header className="flex min-h-20 items-center justify-between gap-4 border-b border-border bg-background px-4 pl-18 sm:px-6 sm:pl-18 md:pl-8">
       <div className="min-w-0">
         <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
-          Admin dashboard
+          {user.role && `${user.role} Dashboard`}
         </p>
         <h1 className="mt-1 truncate text-xl font-semibold tracking-tight">
           {title}
@@ -46,10 +47,14 @@ export function AdminTopbar({ title, userName }: { title: string, userName: stri
           aria-label="Open Alex Morgan profile"
         >
           <span className="flex size-9 items-center justify-center rounded-full bg-primary/15 text-xs font-bold text-primary">
-            AM
+            {user?.name
+                    .split(" ")
+                    .map((part: string) => part[0])
+                    .join("")
+                    .toUpperCase()}
           </span>
           <span className="hidden text-sm font-medium lg:block">
-            {userName}
+            {user.name}
           </span>
         </button>
       </div>

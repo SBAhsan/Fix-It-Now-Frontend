@@ -1,37 +1,35 @@
-import { BriefcaseBusiness, CircleCheck, Clock3, Users } from "lucide-react";
+import { BriefcaseBusiness, CalendarCheck, CircleCheck, Clock3, Users } from "lucide-react";
 
-import AdminServicePlaceHolder from "../_components/admin/AdminServicePlaceHolder";
 import { AdminStatCard } from "../_components/admin/AdminStatCard";
 import { GreetingHeading } from "@/components/shared/GreetingHeading";
 import { getMe } from "@/service/getMe";
+import { DataTable, DataTableColumn } from "../_components/DataTable";
+import { Badge } from "@/components/ui/badge";
+import { getOverviewStats } from "@/service/admin/getOverviewStats";
+import { OverviewStats } from "../_components/admin/OverviewStats";
 
-const stats = [
-  {
-    label: "Total service requests",
-    value: "248",
-    trend: "+12.5%",
-    icon: BriefcaseBusiness,
-  },
-  { label: "Active technicians", value: "36", trend: "+8.2%", icon: Users },
-  {
-    label: "Completed this month",
-    value: "184",
-    trend: "+16.8%",
-    icon: CircleCheck,
-  },
-  {
-    label: "Awaiting assignment",
-    value: "24",
-    trend: "-4.6%",
-    trendDirection: "down" as const,
-    icon: Clock3,
-  },
-];
+type RequestRow = { id: string; customer: string; service: string; technician: string; status: string }
+
+const requests: RequestRow[] = [
+  { id: 'FIN-1048', customer: 'Maya Patel', service: 'Electrical repair', technician: 'Unassigned', status: 'Needs assignment' },
+  { id: 'FIN-1047', customer: 'Jordan Lee', service: 'AC maintenance', technician: 'Chris Morgan', status: 'In progress' },
+  { id: 'FIN-1046', customer: 'Noah Williams', service: 'Plumbing', technician: 'Avery Smith', status: 'Completed' },
+]
+
+const requestColumns: DataTableColumn<RequestRow>[] = [
+  { key: 'id', header: 'Request ID', className: 'font-mono text-xs' },
+  { key: 'customer', header: 'Customer', className: 'font-medium' },
+  { key: 'service', header: 'Service' },
+  { key: 'technician', header: 'Technician' },
+  { key: 'status', header: 'Status', render: (row) => <Badge variant={row.status === 'Completed' ? 'secondary' : row.status === 'In progress' ? 'default' : 'outline'}>{row.status}</Badge> },
+]
 
 export default async function AdminDashboardPage() {
 
     const user = await getMe();
     const userName = user?.name as string;
+
+    const stats = await getOverviewStats();
 
   return (
     <>
@@ -53,13 +51,11 @@ export default async function AdminDashboardPage() {
           </section>
           <section
             aria-label="Dashboard statistics"
-            className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
+            // className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
           >
-            {stats.map((stat) => (
-              <AdminStatCard key={stat.label} {...stat} />
-            ))}
+            <OverviewStats stats={stats} />
           </section>
-          <AdminServicePlaceHolder />
+          <DataTable columns={requestColumns} rows={requests} getRowKey={(row) => row.id} caption="Recent service requests" />
         </div>
       </main>
     </>

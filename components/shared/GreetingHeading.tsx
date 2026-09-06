@@ -17,8 +17,10 @@ export function GreetingHeading({ name }: { name: string }) {
   }, []);
 
   return (
-    <h2 id="overview-heading" className="text-2xl font-semibold tracking-tight text-foreground">
-      {greeting}, {name}
-    </h2>
+    <div id="overview-heading">
+      <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+        {greeting}, {name}
+      </h2>
+    </div>
   );
 }

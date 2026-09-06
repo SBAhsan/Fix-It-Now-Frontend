@@ -38,7 +38,7 @@ export async function proxy(request: NextRequest) {
     process.env.JWT_ACCESS_SECRET as string,
   ) as JwtPayload : null;
 
-  console.log("The verified token: ", verifiedAccessToken);
+  // console.log("The verified token: ", verifiedAccessToken);
 
   // const role = verifiedAccessToken ? verifiedAccessToken.data!.role : undefined;
 

@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 type AdminStatCardProps = {
   label: string;
   value: string;
-  trend: string;
+  // trend: string;
   icon: LucideIcon;
   trendDirection?: "up" | "down";
   helperText?: string;
@@ -15,13 +15,13 @@ type AdminStatCardProps = {
 export function AdminStatCard({
   label,
   value,
-  trend,
+  // trend,
   icon: Icon,
   trendDirection = "up",
   helperText = "from last month",
 }: AdminStatCardProps) {
   const isPositive = trendDirection === "up";
-  const TrendIcon = isPositive ? ArrowUpRight : ArrowDownRight;
+  // const TrendIcon = isPositive ? ArrowUpRight : ArrowDownRight;
 
   return (
     <Card className="border-border/70 bg-card shadow-sm transition-shadow hover:shadow-md">
@@ -40,8 +40,8 @@ export function AdminStatCard({
                 isPositive ? "text-primary" : "text-destructive",
               )}
             >
-              <TrendIcon aria-hidden="true" className="size-3.5" />
-              {trend}
+              {/* <TrendIcon aria-hidden="true" className="size-3.5" />
+              {trend} */}
             </span>
           </div>
           <p className="text-xs text-muted-foreground">{helperText}</p>

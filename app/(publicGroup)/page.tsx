@@ -5,7 +5,7 @@ import HowItWorks from "@/components/home/how-it-works";
 import ForTechnicians from "@/components/home/for-technicians";
 import Footer from "@/components/home/footer";
 import { Suspense } from "react";
-import { getCategories } from "@/service/getCategories";
+import { getCategories } from "@/service/admin/getCategories";
 
 
 

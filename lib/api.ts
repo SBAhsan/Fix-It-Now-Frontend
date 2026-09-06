@@ -1,5 +1,12 @@
+"use server";
+
+import { cookies } from "next/headers";
+
 export const api = async (pathURL: string, options: RequestInit) => {
   try {
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+
     const { headers, ...rest } = options;
 
     console.log(`The requested path: ${process.env.API_URL}${pathURL}`);
@@ -7,17 +14,11 @@ export const api = async (pathURL: string, options: RequestInit) => {
     const res = await fetch(`${process.env.API_URL}${pathURL}`, {
       headers: {
         "Content-Type": "application/json",
+        ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
         ...headers,
       },
       ...rest,
     });
-
-    // if(!res.ok) {
-    //     return {
-    //         success: false,
-    //         message: "Invalid login credentials"
-    //     }
-    // }
 
     if (!res.ok) {
       const errBody = await res.json().catch(() => null);

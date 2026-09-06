@@ -11,18 +11,17 @@ export default async function DashboardGroupLayout({
   children: ReactNode;
 }) {
   const user = await getMe();
-  const userName = user?.name as string;
 
   console.log("The logged in user is: ", user);
 
   return (
     <div className="flex min-h-screen bg-background">
-      {user?.role === "ADMIN" && <AdminSidebar />}
+      {user?.role === "ADMIN" && <AdminSidebar user={user} />}
       {user?.role === "TECHNICIAN" && <TechnicianSidebar />}
       {user?.role === "CUSTOMER" && <CustomerSidebar />}
 
       <div className="flex min-w-0 flex-1 flex-col">
-        {user?.role === "ADMIN" && <AdminTopbar title="Overview" userName={userName}/>}
+        {user?.role === "ADMIN" && <AdminTopbar user={user} title="Overview"/>}
 
         <main className="flex-1 overflow-y-auto">{children}</main>
       </div>

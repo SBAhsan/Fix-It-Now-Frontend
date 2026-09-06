@@ -10,7 +10,7 @@ export const getMe = async () : Promise<User | null> => {
 
     const accessToken = cookieStore.get("accessToken")?.value;
 
-    console.log("access token: ", accessToken);
+    // console.log("access token: ", accessToken);
 
     if(!accessToken) return null;
 
@@ -21,7 +21,7 @@ export const getMe = async () : Promise<User | null> => {
         }
     })
 
-    console.log("The response is: ", res);
+    // console.log("The response is: ", res);
 
     if(res.success) return res.data;
 
