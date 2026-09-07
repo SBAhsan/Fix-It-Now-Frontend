@@ -29,7 +29,6 @@ import {
 } from "@/components/ui/table";
 import { AdminUser } from "@/lib/types";
 import { EditUserDialog } from "./EditUserStatus";
-import { updateUserStatus } from "@/service/admin/updateUserStatus";
 
 const roleIcons = {
   ADMIN: ShieldCheck,

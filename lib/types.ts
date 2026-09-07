@@ -51,3 +51,11 @@ export type AdminOverviewStats = {
   totalBookings: number;
   totalRevenue: number;
 };
+
+export type AdminBookingRow = {
+  id: string;
+  customer: string;
+  service: string;
+  technician: string;
+  status: string;
+};

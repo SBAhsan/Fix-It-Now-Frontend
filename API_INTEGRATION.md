@@ -1,3 +1,14 @@
-/api/auth/register =>  app/(auth)/_actions/authActions.ts
-/api/auth/login    =>  app/(auth)/_actions/authActions.ts
-/api/auth/me       =>  service/getMe.ts
+/api/auth/register         ==>  app/(auth)/_actions/authActions.ts
+/api/auth/login            ==>  app/(auth)/_actions/authActions.ts
+/api/auth/me               ==>  service/getMe.ts
+/api/admin/users           ==>  service/admin/getUsers.ts
+/api/admin/users/:id       ==>  service/admin/getSingleUser.ts
+/api/admin/technician/:id  ==>  service/admin/getSingleTechnician.ts
+/api/admin/services        ==>  service/admin/getServices.ts
+/api/admin/categories      ==>  service/admin/createCategory.ts
+/api/admin/categories      ==>  service/admin/getCategories.ts
+/api/admin/users           ==>  service/admin/getOverviewStats.ts
+/api/admin/bookings        ==>  service/admin/getOverviewStats.ts
+/api/payments              ==>  service/admin/getOverviewStats.ts
+/api/admin/users/:id       ==>  service/admin/updateUserStatus.ts
+/api/admin/bookings        ==>  service/admin/getRecentBookings.ts

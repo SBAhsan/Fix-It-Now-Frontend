@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
-import { Role } from "./lib/types";
 import { verifyToken } from "./lib/jwt";
 import { JwtPayload } from "jsonwebtoken";
 import { cookies } from "next/headers";
+import { getNewAccessToken } from "./service/refreshToken";
+import { UserRole } from "./lib/types";
 
 const AUTH_ROUTES = ["/login", "/register"];
 
@@ -13,7 +14,7 @@ const PUBLIC_ROUTES = ["/"];
 // const TECHNICIAN_ROUTES = ["/technician-dashboard"];
 // const CUSTOMER_ROUTES = ["/dashboard"];
 
-const ROLE_BASED_ROUTES: Record<string, Role[]> = {
+const ROLE_BASED_ROUTES: Record<string, UserRole[]> = {
 //   "/dashboard": ["ADMIN", "TECHNICIAN", "CUSTOMER"],
   "/admin-dashboard": ["ADMIN"],
   "/technician-dashboard": ["TECHNICIAN"],
@@ -31,16 +32,43 @@ export async function proxy(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  const accessToken = request.cookies.get("accessToken")?.value;
+  let accessToken = request.cookies.get("accessToken")?.value;
+  const refreshToken = request.cookies.get("refreshToken")?.value;
 
-  const verifiedAccessToken = accessToken ? verifyToken(
+  let verifiedAccessToken = accessToken ? verifyToken(
     accessToken as string,
     process.env.JWT_ACCESS_SECRET as string,
   ) as JwtPayload : null;
 
-  // console.log("The verified token: ", verifiedAccessToken);
+  const verifiedRefreshToken = refreshToken ? verifyToken(
+    refreshToken as string,
+    process.env.JWT_REFRESH_SECRET as string,
+  ) as JwtPayload : null;
 
-  // const role = verifiedAccessToken ? verifiedAccessToken.data!.role : undefined;
+  if(!verifiedAccessToken?.success && verifiedRefreshToken?.success) {
+    const result = await getNewAccessToken();
+
+    if(result.success) {
+      const newAccessToken = result.data.accessToken;
+
+      cookieStore.set("accessToken", newAccessToken, {
+        httpOnly: true,
+        maxAge: 60 * 60 * 24,
+        sameSite: "lax",
+      });
+
+      console.log("access: ",accessToken);
+
+      accessToken = newAccessToken;
+
+      verifiedAccessToken = (verifyToken(
+        accessToken as string,
+        process.env.JWT_ACCESS_SECRET as string,
+      ));
+    }
+  }
+
+  // console.log("The verified token: ", verifiedAccessToken);
 
   let userRole = null;
 

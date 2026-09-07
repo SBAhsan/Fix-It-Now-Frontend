@@ -7,6 +7,7 @@ import { DataTable, DataTableColumn } from "../_components/DataTable";
 import { Badge } from "@/components/ui/badge";
 import { getOverviewStats } from "@/service/admin/getOverviewStats";
 import { OverviewStats } from "../_components/admin/OverviewStats";
+import { getRecentBookings } from "@/service/admin/getRecentBookings";
 
 type RequestRow = { id: string; customer: string; service: string; technician: string; status: string }
 
@@ -30,6 +31,7 @@ export default async function AdminDashboardPage() {
     const userName = user?.name as string;
 
     const stats = await getOverviewStats();
+    const requests = await getRecentBookings();
 
   return (
     <>

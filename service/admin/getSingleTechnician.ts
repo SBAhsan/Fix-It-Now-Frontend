@@ -1,7 +1,7 @@
 import { api } from "@/lib/api";
 
-export async function getSingleUser(technicianId: string) {
-    const res = await api(`/api/admin/users/${technicianId}`, {
+export async function getSingleTechnician(technicianId: string) {
+    const res = await api(`/api/admin/technician/${technicianId}`, {
         cache: "no-store"
     });
 

@@ -75,7 +75,7 @@ function NavSection({
               <Icon className="size-4 shrink-0" aria-hidden="true" />
               <span className="flex-1 truncate">{item.label}</span>
               {item.badge ? (
-                <span className={cn(/* ... */)}>{item.badge}</span>
+                <span className={cn()}>{item.badge}</span>
               ) : null}
             </Link>
           );
