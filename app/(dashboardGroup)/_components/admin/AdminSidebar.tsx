@@ -122,9 +122,6 @@ export function AdminSidebar({user} : {user : User}) {
       >
         <div className="flex h-20 items-center justify-between border-b border-sidebar-border px-5">
           <div className="flex items-center gap-3">
-            {/* <div className="flex size-10 items-center justify-center rounded-xl bg-sidebar-primary text-sidebar-primary-foreground">
-              <Wrench className="size-5" aria-hidden="true" />
-            </div> */}
             <div>
               <Image src={logo} alt="fix-it-now-logo" className="h-8 w-35 bg-white"/>
               <p className="text-[11px] text-sidebar-foreground/50">

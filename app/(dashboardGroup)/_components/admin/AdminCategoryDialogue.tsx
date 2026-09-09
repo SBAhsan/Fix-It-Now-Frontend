@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,24 +15,37 @@ import {
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { createCategory } from "@/service/admin/createCategory";
 
 export function AdminCategoryDialog() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(true);
+  const [isPending, startTransition] = useTransition()
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setOpen(false);
+
+    const formData = new FormData(event.currentTarget);
+
+    console.log("The form data are: ", formData);
+
+    startTransition(async () => {
+        const res = await createCategory(formData);
+
+        console.log("Created category info: ", res);
+
+        if(res.success) {
+            setOpen(false);
+        }
+    })
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <Button>
+      <DialogTrigger render={<Button>
           <Plus data-icon="inline-start" />
           Add category
-        </Button>
-      </DialogTrigger>
+        </Button>} />
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Create service category</DialogTitle>
@@ -78,6 +91,7 @@ export function AdminCategoryDialog() {
             </div>
             <Switch
               id="category-active"
+              name="isActive"
               checked={active}
               onCheckedChange={setActive}
               aria-label="Active category"
@@ -91,7 +105,11 @@ export function AdminCategoryDialog() {
             >
               Cancel
             </Button>
-            <Button type="submit">Create category</Button>
+            <Button type="submit">
+                {
+                    isPending ? "Creating..." : "Create category"
+                }
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

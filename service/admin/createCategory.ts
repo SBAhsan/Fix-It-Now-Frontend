@@ -1,10 +1,15 @@
+"use server"
+
 import { api } from "@/lib/api";
+import { revalidatePath } from "next/cache";
 
 export async function createCategory(formData: FormData) {
-  try {
-    const name = formData.get("name");
+
+  console.log("Raw isActive value:", formData.get("isActive"));
+
+  const name = formData.get("name");
     const description = formData.get("description");
-    const isActive = formData.get("isActive");
+    const isActive = formData.get("isActive") === "on";
 
     const res = await api("/api/admin/categories", {
       method: "POST",
@@ -15,8 +20,7 @@ export async function createCategory(formData: FormData) {
       }),
     });
 
-    return res.data;
-  } catch (error) {
-    return error;
-  }
+    if (res.success) revalidatePath("/admin-dashboard/categories");
+
+    return res;
 }

@@ -59,3 +59,9 @@ export type AdminBookingRow = {
   technician: string;
   status: string;
 };
+
+export type CreateCategory = {
+  name: string;
+  description: string;
+  isActive: boolean;
+} 
