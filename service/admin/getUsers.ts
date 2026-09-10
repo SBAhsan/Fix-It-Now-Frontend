@@ -1,3 +1,5 @@
+"use server";
+
 import { api } from "@/lib/api";
 import { AdminUser } from "@/lib/types";
 

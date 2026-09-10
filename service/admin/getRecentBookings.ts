@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use server";
+
 import { api } from "@/lib/api";
 import { AdminBookingRow } from "@/lib/types";
 
@@ -7,10 +9,11 @@ export async function getRecentBookings(): Promise<AdminBookingRow[]> {
   if (!res.success) return [];
 
   return res.data.map((b: any) => ({
-    id: b.id,
-    customer: b.customer?.name ?? "Unknown",
-    service: b.bookingItems?.[0]?.service?.title ?? "—",
-    technician: b.technician?.user?.name ?? "Unassigned",
-    status: b.status,
-  }));
+  id: b.id,
+  customer: b.customer?.name ?? "Unknown",
+  service: b.bookingItems?.[0]?.service?.title ?? "—",
+  technician: b.technician?.user?.name ?? "Unassigned",
+  status: b.status,
+  createdAt: b.createdAt,
+}));
 }

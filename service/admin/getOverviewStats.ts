@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use server";
+
 import { api } from "@/lib/api";
 import { AdminOverviewStats } from "@/lib/types";
 

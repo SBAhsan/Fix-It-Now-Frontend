@@ -8,14 +8,10 @@ import { Badge } from "@/components/ui/badge";
 import { getOverviewStats } from "@/service/admin/getOverviewStats";
 import { OverviewStats } from "../_components/admin/OverviewStats";
 import { getRecentBookings } from "@/service/admin/getRecentBookings";
+import { BookingsChart } from "../_components/admin/BookingChart";
+import { aggregateBookingsByMonth } from "@/service/admin/aggregateBookingsByMonth";
 
 type RequestRow = { id: string; customer: string; service: string; technician: string; status: string }
-
-const requests: RequestRow[] = [
-  { id: 'FIN-1048', customer: 'Maya Patel', service: 'Electrical repair', technician: 'Unassigned', status: 'Needs assignment' },
-  { id: 'FIN-1047', customer: 'Jordan Lee', service: 'AC maintenance', technician: 'Chris Morgan', status: 'In progress' },
-  { id: 'FIN-1046', customer: 'Noah Williams', service: 'Plumbing', technician: 'Avery Smith', status: 'Completed' },
-]
 
 const requestColumns: DataTableColumn<RequestRow>[] = [
   { key: 'id', header: 'Request ID', className: 'font-mono text-xs' },
@@ -32,6 +28,8 @@ export default async function AdminDashboardPage() {
 
     const stats = await getOverviewStats();
     const requests = await getRecentBookings();
+
+    const chartData = aggregateBookingsByMonth(requests);
 
   return (
     <>
@@ -58,6 +56,7 @@ export default async function AdminDashboardPage() {
             <OverviewStats stats={stats} />
           </section>
           <DataTable columns={requestColumns} rows={requests} getRowKey={(row) => row.id} caption="Recent service requests" />
+            <BookingsChart bookingData={chartData} />
         </div>
       </main>
     </>
