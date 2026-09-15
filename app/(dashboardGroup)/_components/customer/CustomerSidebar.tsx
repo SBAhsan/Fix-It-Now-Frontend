@@ -15,8 +15,10 @@ import {
   Wrench,
   X,
 } from "lucide-react";
+import logo from "../../../../public/fix-it-now-logo.jpg"
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const items = [
   { label: "Dashboard", icon: Home },
@@ -61,13 +63,8 @@ export function CustomerSidebar({user} : {user : User}) {
       >
         <div className="flex h-20 items-center justify-between border-b border-sidebar-border px-5">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-xl bg-sidebar-primary text-sidebar-primary-foreground">
-              <Wrench className="size-5" aria-hidden="true" />
-            </div>
             <div>
-              <p className="font-semibold tracking-tight">
-                fix it <span className="text-sidebar-primary">now</span>
-              </p>
+              <Image src={logo} alt="fix-it-now-logo" className="h-8 w-35 bg-white"/>
               <p className="text-[11px] text-sidebar-foreground/50">
                 Customer workspace
               </p>
@@ -82,17 +79,6 @@ export function CustomerSidebar({user} : {user : User}) {
           >
             <X data-icon="inline-start" />
           </Button>
-        </div>
-        <div className="flex items-center gap-3 border-b border-sidebar-border px-5 py-5">
-          <div className="flex size-10 items-center justify-center rounded-full bg-sidebar-primary/15 text-sm font-bold text-sidebar-primary">
-            {user.name.split(" ").map((part : string) => part[0]).join("").toUpperCase()}
-          </div>
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-semibold">{user.name}</p>
-            <p className="truncate text-xs text-sidebar-foreground/50">
-              Customer
-            </p>
-          </div>
         </div>
         <nav
           aria-label="Customer navigation"

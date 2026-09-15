@@ -2,11 +2,9 @@
 
 import { useState } from "react";
 import {
-  Bell,
   ChevronDown,
   CircleHelp,
   ClipboardList,
-  FolderKanban,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -41,8 +39,6 @@ const serviceItems: NavItem[] = [
 function NavSection({
   label,
   items,
-  active,
-  onSelect,
 }: {
   label: string;
   items: NavItem[];
