@@ -1,6 +1,3 @@
-import { BriefcaseBusiness, CalendarCheck, CircleCheck, Clock3, Users } from "lucide-react";
-
-import { AdminStatCard } from "../_components/admin/AdminStatCard";
 import { GreetingHeading } from "@/components/shared/GreetingHeading";
 import { getMe } from "@/service/getMe";
 import { DataTable, DataTableColumn } from "../_components/DataTable";

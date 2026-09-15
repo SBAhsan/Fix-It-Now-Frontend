@@ -23,6 +23,7 @@ import Image from "next/image";
 import { User } from "@/lib/types";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { logoutActions } from "@/app/(auth)/_actions/authActions";
 
 type NavItem = { label: string; icon: typeof LayoutDashboard; badge?: string; href: string };
 
@@ -190,6 +191,7 @@ export function AdminSidebar({user} : {user : User}) {
           <button
             type="button"
             className="mt-1 flex min-h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-destructive hover:bg-destructive/10"
+            onClick={logoutActions}
           >
             <LogOut className="size-4" aria-hidden="true" />
             Sign out

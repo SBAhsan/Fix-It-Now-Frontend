@@ -110,3 +110,14 @@ export type AdminTechnicianProfile = {
     isActive: boolean;
   }[];
 };
+
+
+export type CustomerUser = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  role: UserRole;
+  status: UserStatus;
+  createdAt: string;
+};
