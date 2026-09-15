@@ -29,6 +29,15 @@ export type AdminUser = {
   createdAt: string;
 };
 
+// export type AdminProfileUser = {
+//   id: string;
+//   name: string;
+//   email: string;
+//   role: UserRole;
+//   status: UserStatus;
+//   joined: string;
+// };
+
 export type Category = {
   id: string;
   name: string;
@@ -75,4 +84,29 @@ export type CreateCategory = {
   name: string;
   description: string;
   isActive: boolean;
+};
+
+
+export type AdminTechnicianProfile = {
+  id: string;
+  bio: string | null;
+  skills: string[];
+  experienceYears: number;
+  city: string;
+  avgRating: string;
+  totalReviews: number;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    status: UserStatus;
+    createdAt: string;
+  };
+  services: {
+    id: string;
+    title: string;
+    price: string;
+    isActive: boolean;
+  }[];
 };

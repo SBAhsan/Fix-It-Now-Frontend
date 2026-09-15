@@ -2,14 +2,14 @@
 
 import { api } from "@/lib/api";
 
-export async function getSingleTechnician(technicianId: string) {
+export async function deleteTechnician(technicianId: string) {
     const res = await api(`/api/admin/technician/${technicianId}`, {
-        cache: "no-store"
+        method: "DELETE"
     });
 
     // console.log("Res Data: ", res.data);
 
-    if(!res.success) return [];
+    if(!res.success) return null;
 
-    return res.data;
+    return res;
 }

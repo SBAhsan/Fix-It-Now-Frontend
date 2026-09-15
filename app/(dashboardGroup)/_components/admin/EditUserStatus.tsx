@@ -20,7 +20,6 @@ import {
 import { UserStatus } from "@/lib/types";
 import { updateUserStatus } from "@/service/admin/updateUserStatus";
 import { toast } from "@/components/ui/toast";
-import { useRouter } from "next/navigation";
 
 export type EditableUser = {
   id: string;

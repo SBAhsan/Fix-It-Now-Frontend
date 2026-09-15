@@ -9,7 +9,7 @@ export async function getSingleUser(userId: string) {
 
     // console.log("Res Data: ", res.data);
 
-    if(!res.success) return [];
+    if(!res.success) return null;
 
     return res.data;
 }

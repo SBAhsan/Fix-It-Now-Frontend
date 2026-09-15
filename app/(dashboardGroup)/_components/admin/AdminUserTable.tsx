@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -29,6 +30,8 @@ import {
 } from "@/components/ui/table";
 import { AdminUser } from "@/lib/types";
 import { EditUserDialog } from "./EditUserStatus";
+import { useRouter } from "next/navigation";
+import AdminUserProfile from "./AdminUserProfile";
 
 const roleIcons = {
   ADMIN: ShieldCheck,
@@ -37,16 +40,18 @@ const roleIcons = {
 };
 
 export function UserTable({ users }: { users: AdminUser[] }) {
+  const router = useRouter();
   const [query, setQuery] = useState("");
-  const [role, setRole] = useState("All");
+  const [role, setRole] = useState("ALL");
   const [editingUser, setEditingUser] = useState<AdminUser | null>(null);
+  const [profile, setProfile] = useState<AdminUser | null>(null);
   const filteredUsers = useMemo(
     () =>
       users.filter((user) => {
         const matchesQuery = `${user.name} ${user.email}`
           .toLowerCase()
           .includes(query.toLowerCase());
-        return matchesQuery && (role === "All" || user.role === role);
+        return matchesQuery && (role === "ALL" || user.role === role);
       }),
     [query, role],
   );
@@ -87,18 +92,20 @@ export function UserTable({ users }: { users: AdminUser[] }) {
               Role: {role}
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Filter by role</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              {(["All", "Admin", "Technician", "Customer"] as const).map(
-                (option) => (
-                  <DropdownMenuItem
-                    key={option}
-                    onSelect={() => setRole(option)}
-                  >
-                    {option}
-                  </DropdownMenuItem>
-                ),
-              )}
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Filter by role</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {(["ALL", "ADMIN", "TECHNICIAN", "CUSTOMER"] as const).map(
+                  (option) => (
+                    <DropdownMenuItem
+                      key={option}
+                      onClick={() => setRole(option)}
+                    >
+                      {option}
+                    </DropdownMenuItem>
+                  ),
+                )}
+              </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -144,7 +151,7 @@ export function UserTable({ users }: { users: AdminUser[] }) {
                     </Badge>
                   </TableCell>
                   <TableCell className="text-muted-foreground">
-                    {/* {user.joined} */}
+                    {user.createdAt}
                   </TableCell>
                   <TableCell className="text-right">
                     <DropdownMenu>
@@ -160,10 +167,15 @@ export function UserTable({ users }: { users: AdminUser[] }) {
                         <MoreHorizontal />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem>View profile</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => {
-                          console.log("Edit Status clicked for:", user.name);
-                          setEditingUser(user)}}>
+                        <DropdownMenuItem onClick={() => setProfile(user)}>
+                          View profile
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => {
+                            console.log("Edit Status clicked for:", user.name);
+                            setEditingUser(user);
+                          }}
+                        >
                           Edit Status
                         </DropdownMenuItem>
                       </DropdownMenuContent>
@@ -180,6 +192,13 @@ export function UserTable({ users }: { users: AdminUser[] }) {
           </p>
         ) : null}
       </div>
+      {profile && (
+        <AdminUserProfile
+          userProfile={profile}
+          open={!!profile}
+          onOpenChange={(open) => !open && setProfile(null)}
+        />
+      )}
       {editingUser && (
         <EditUserDialog
           user={editingUser}
