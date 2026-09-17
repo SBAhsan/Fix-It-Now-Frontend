@@ -134,3 +134,30 @@ export type CustomerBooking = {
   payment: { status: string } | null;
   review: { rating: number } | null;
 };
+
+export type PaymentStatus = "PENDING" | "COMPLETED" | "FAILED" | "REFUNDED";
+
+export type CustomerPayment = {
+  id: string;
+  transactionId: string;
+  amount: string; // Decimal → string over JSON
+  method: string | null;
+  provider: "Stripe" | "SSLcommerz";
+  status: PaymentStatus;
+  paidAt: string;
+  booking: {
+    id: string;
+    scheduledDate: string;
+    workAddress: string;
+    status: string;
+  };
+};
+
+export type CustomerReview = {
+  id: string;
+  service: string;
+  technician: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
+};

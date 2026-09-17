@@ -13,3 +13,7 @@
 /api/admin/users/:id       ==>  service/admin/updateUserStatus.ts
 /api/admin/bookings        ==>  service/admin/getRecentBookings.ts
 /api/admin/technician/:id  ==>  service/admin/deleteTechnician.ts
+
+/api/bookings/me           ==>  service/customer/getMyBookings.ts
+/api/payments              ==>  service/customer/getMyPayments.ts
+/api/reviews/me            ==>  service/customer/getMyReviews.ts
