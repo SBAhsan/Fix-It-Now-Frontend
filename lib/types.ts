@@ -111,7 +111,7 @@ export type AdminTechnicianProfile = {
   }[];
 };
 
-
+// customer
 export type CustomerUser = {
   id: string;
   name: string;
@@ -120,4 +120,17 @@ export type CustomerUser = {
   role: UserRole;
   status: UserStatus;
   createdAt: string;
+};
+
+export type BookingStatus = "PENDING" | "ACCEPTED" | "DECLINED" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED"
+
+export type CustomerBooking = {
+  id: string;
+  status: BookingStatus;
+  totalAmount: string;
+  scheduledDate: string;
+  technician: { user: { name: string } };
+  bookingItems: { service: { title: string } }[];
+  payment: { status: string } | null;
+  review: { rating: number } | null;
 };

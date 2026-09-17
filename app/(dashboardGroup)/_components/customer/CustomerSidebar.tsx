@@ -12,22 +12,25 @@ import {
   Settings,
   Star,
   UserRound,
-  Wrench,
   X,
 } from "lucide-react";
 import logo from "../../../../public/fix-it-now-logo.jpg"
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const items = [
-  { label: "Dashboard", icon: Home },
-  { label: "My bookings", icon: CalendarCheck, badge: "2" },
-  { label: "Messages", icon: MessageCircle },
-  { label: "My reviews", icon: Star },
+  { label: "Dashboard", icon: Home, href: "/dashboard" },
+  { label: "My bookings", icon: CalendarCheck, href: "/dashboard/my-bookings" },
+  { label: "Messages", icon: MessageCircle, href: "/dashboard/messages" },
+  { label: "My reviews", icon: Star, href: "/dashboard/my-reviews" },
 ];
 
 export function CustomerSidebar({user} : {user : User}) {
+
+    const router = useRouter();
+
   const [active, setActive] = useState("Dashboard");
   const [open, setOpen] = useState(false);
 
@@ -94,7 +97,10 @@ export function CustomerSidebar({user} : {user : User}) {
               <button
                 key={item.label}
                 type="button"
-                onClick={() => select(item.label)}
+                onClick={() => {
+                    select(item.label);
+                    router.push(item.href)
+                }}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
                   "group flex min-h-10 items-center gap-3 rounded-lg px-3 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring",
@@ -105,18 +111,6 @@ export function CustomerSidebar({user} : {user : User}) {
               >
                 <Icon className="size-4 shrink-0" aria-hidden="true" />
                 <span className="flex-1 truncate">{item.label}</span>
-                {item.badge ? (
-                  <span
-                    className={cn(
-                      "rounded-full px-1.5 py-0.5 text-[10px] font-bold",
-                      isActive
-                        ? "bg-sidebar-primary-foreground/15"
-                        : "bg-sidebar-accent text-sidebar-foreground/60",
-                    )}
-                  >
-                    {item.badge}
-                  </span>
-                ) : null}
               </button>
             );
           })}

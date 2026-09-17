@@ -1,5 +1,4 @@
 import type { LucideIcon } from "lucide-react";
-import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
@@ -15,13 +14,8 @@ type AdminStatCardProps = {
 export function AdminStatCard({
   label,
   value,
-  // trend,
   icon: Icon,
-  trendDirection = "up",
-  helperText = "from last month",
 }: AdminStatCardProps) {
-  const isPositive = trendDirection === "up";
-  // const TrendIcon = isPositive ? ArrowUpRight : ArrowDownRight;
 
   return (
     <Card className="border-border/70 bg-card shadow-sm transition-shadow hover:shadow-md">
@@ -34,17 +28,8 @@ export function AdminStatCard({
             <p className="text-2xl font-semibold tracking-tight text-foreground">
               {value}
             </p>
-            <span
-              className={cn(
-                "inline-flex items-center gap-0.5 text-xs font-semibold",
-                isPositive ? "text-primary" : "text-destructive",
-              )}
-            >
-              {/* <TrendIcon aria-hidden="true" className="size-3.5" />
-              {trend} */}
-            </span>
           </div>
-          <p className="text-xs text-muted-foreground">{helperText}</p>
+          {/* <p className="text-xs text-muted-foreground">{helperText}</p> */}
         </div>
         <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
           <Icon aria-hidden="true" className="size-5" />
