@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { logoutActions } from "@/app/(auth)/_actions/authActions";
 
 const items = [
   { label: "Dashboard", icon: Home, href: "/dashboard" },
@@ -116,13 +117,13 @@ export function CustomerSidebar({user} : {user : User}) {
           })}
         </nav>
         <div className="flex flex-col gap-1 border-t border-sidebar-border p-3">
-          <button
+          {/* <button
             type="button"
             className="flex min-h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
           >
             <UserRound className="size-4" aria-hidden="true" />
             Profile
-          </button>
+          </button> */}
           <button
             type="button"
             className="flex min-h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
@@ -139,6 +140,7 @@ export function CustomerSidebar({user} : {user : User}) {
           </button>
           <button
             type="button"
+            onClick={logoutActions}
             className="mt-1 flex min-h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-destructive hover:bg-destructive/10"
           >
             <LogOut className="size-4" aria-hidden="true" />

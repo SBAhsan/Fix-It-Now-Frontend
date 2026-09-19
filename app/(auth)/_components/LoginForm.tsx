@@ -7,9 +7,12 @@ import { Label } from "@/components/ui/label";
 import { useActionState, useEffect } from "react";
 import { loginActions } from "../_actions/authActions";
 import { toast } from "@/components/ui/toast";
+import { useSearchParams } from "next/navigation";
 
 
 const LoginForm = () => {
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect");
 
   const [state, action, pending] = useActionState(loginActions, {
     success: false,
@@ -28,6 +31,7 @@ const LoginForm = () => {
   return (
     <Card className="p-5">
       <form action={action} className="space-y-5">
+        {redirectTo && <input type="hidden" name="redirect" value={redirectTo} />}
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input

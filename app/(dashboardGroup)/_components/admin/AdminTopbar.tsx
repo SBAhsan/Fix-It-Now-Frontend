@@ -3,8 +3,12 @@
 import { Bell, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { User } from "@/lib/types";
+import { useRouter } from "next/navigation";
 
 export function AdminTopbar({ user, title }: { user: User, title: string }) {
+
+  const router = useRouter();
+
   return (
     <div className="">
         <header className="flex min-h-20 items-center justify-between gap-4 border-b border-border bg-background px-4 pl-18 sm:px-6 sm:pl-18 md:pl-8">
@@ -43,6 +47,7 @@ export function AdminTopbar({ user, title }: { user: User, title: string }) {
         </Button>
         <button
           type="button"
+          onClick={() => router.push("/my-profile")}
           className="flex items-center gap-2 rounded-lg p-1.5 text-left transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="Open Alex Morgan profile"
         >

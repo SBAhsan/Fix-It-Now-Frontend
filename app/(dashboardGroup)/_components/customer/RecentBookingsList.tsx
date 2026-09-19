@@ -1,4 +1,4 @@
-import { CalendarDays, ChevronRight, Clock3, MapPin } from "lucide-react";
+import { CalendarDays, ChevronRight, Clock3 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,10 +15,6 @@ const statusVariants: Record<
   COMPLETED: "outline",
   CANCELLED: "destructive",
 };
-
-// export type RecentBookingsListProps = {
-//   bookings: CustomerBooking[];
-// };
 
 export function RecentBookingsList( {bookings} : {bookings : CustomerBooking[]}) {
   return (

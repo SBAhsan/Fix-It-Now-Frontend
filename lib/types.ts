@@ -1,3 +1,19 @@
+export type PublicService = {
+  id: string;
+  title: string;
+  description: string | null;
+  price: string;
+  isActive: boolean;
+  category: { id: string; name: string };
+  technician: {
+    id: string;
+    city: string;
+    avgRating: string;
+    user: { name: string };
+  };
+};
+
+
 export type RegisterState = {
   success: boolean;
   message: string;
@@ -14,9 +30,11 @@ export type UserStatus = "ACTIVE" | "BANNED" | "UNBANNED";
 export type User = {
   name: string;
   email: string;
-  password: string;
   phone: string;
-  role: UserRole;
+  role: UserRole
+  status: UserStatus
+  createdAt: string;
+  updatedAt?: string;
 };
 
 export type AdminUser = {
@@ -60,14 +78,6 @@ export type AdminOverviewStats = {
   totalBookings: number;
   totalRevenue: number;
 };
-
-// export type AdminBookingRow = {
-//   id: string;
-//   customer: string;
-//   service: string;
-//   technician: string;
-//   status: string;
-// };
 
 export type AdminBookingRow = {
   id: string;
@@ -122,7 +132,40 @@ export type CustomerUser = {
   createdAt: string;
 };
 
+export type ServiceDetail = {
+  id: string;
+  title: string;
+  description: string | null;
+  price: string;
+  isActive: boolean;
+  category: { id: string; name: string };
+  technician: {
+    id: string;
+    bio: string | null;
+    city: string;
+    avgRating: string;
+    totalReviews: number;
+    experienceYears: number;
+    user: { name: string };
+    availabilitySlots: {
+      id: string;
+      slotDate: string;
+      slotTime: string;
+      isBooked: boolean;
+    }[];
+  };
+};
+
 export type BookingStatus = "PENDING" | "ACCEPTED" | "DECLINED" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED"
+
+export type CreateBookingPayload = {
+  technicianId: string;
+  serviceIds: string[];
+  slotId: string;
+  scheduledDate: string;
+  scheduledTime: string;
+  workAddress: string;
+}
 
 export type CustomerBooking = {
   id: string;

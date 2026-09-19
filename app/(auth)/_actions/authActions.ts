@@ -97,6 +97,9 @@ export const loginActions = async (
   prevState: LoginState,
   formData: FormData,
 ) => {
+  
+  const redirectTo = formData.get("redirect") as string | null;
+
   const res = await api("/api/auth/login", {
     method: "POST",
     body: JSON.stringify({
@@ -119,6 +122,10 @@ export const loginActions = async (
 
   console.log("The role of current user is: ", role);
   console.log("Type of role value: ", typeof role);
+
+  if (redirectTo) {
+    redirect(redirectTo);
+  }
 
   if (role === "ADMIN") {
     redirect("/admin-dashboard");

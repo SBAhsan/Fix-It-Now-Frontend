@@ -16,7 +16,7 @@ export default async function DashboardGroupLayout({
   console.log("The logged in user is: ", user);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
+    <div className="flex h-screen overflow-hidden bg-background mx-40">
       {user?.role === "ADMIN" && <AdminSidebar user={user} />}
       {user?.role === "TECHNICIAN" && <TechnicianSidebar />}
       {user?.role === "CUSTOMER" && <CustomerSidebar user={user} />}

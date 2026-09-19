@@ -1,12 +1,18 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { User } from "@/lib/types";
 
-const ForTechnicians = () => {
-    return (
+const ForTechnicians = ({ user }: { user: User | null }) => {
+  const isTechnician = user?.role === "TECHNICIAN";
+  const showRegisterCta = !user;
+
+  return (
     <section id="technicians" className="mx-auto max-w-6xl px-6 py-8">
       <div className="grid items-center gap-10 rounded-3xl bg-slate-900 p-10 text-slate-50 md:grid-cols-2 md:p-14">
         <div>
-          <p className="mb-3 text-xs font-medium text-cyan-300">FOR TECHNICIANS</p>
+          <p className="mb-3 text-xs font-medium text-cyan-300">
+            FOR TECHNICIANS
+          </p>
           <h2 className="mb-4 text-3xl font-bold">
             Your skills, your schedule, your ticket queue.
           </h2>
@@ -14,9 +20,25 @@ const ForTechnicians = () => {
             Build a profile, set the areas and hours you work, and let job
             requests come to you.
           </p>
-          <Button className="bg-coral hover:bg-coral/90">
-            <Link href="/register?role=technician">Create technician profile</Link>
-          </Button>
+          {isTechnician ? (
+            <Button
+              className="bg-coral hover:bg-coral/90"
+              render={
+                <Link href="/technician-dashboard">Go to your dashboard</Link>
+              }
+              nativeButton={false}
+            />
+          ) : showRegisterCta ? (
+            <Button
+              className="bg-coral hover:bg-coral/90"
+              render={
+                <Link href="/register?role=technician">
+                  Create technician profile
+                </Link>
+              }
+              nativeButton={false}
+            />
+          ) : null}
         </div>
 
         <dl className="space-y-4">

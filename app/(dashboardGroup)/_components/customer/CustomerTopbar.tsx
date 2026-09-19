@@ -3,8 +3,12 @@
 import { Bell, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { User } from "@/lib/types";
+import { useRouter } from "next/navigation";
 
 export function CustomerTopbar({ title, user }: { title: string, user: User }) {
+
+  const router = useRouter();
+
   return (
     <header className="flex min-h-20 items-center justify-between gap-4 border-b border-border bg-background px-4 pl-18 sm:px-6 sm:pl-18 md:pl-8">
       <div className="min-w-0">
@@ -16,7 +20,7 @@ export function CustomerTopbar({ title, user }: { title: string, user: User }) {
         </h1>
       </div>
       <div className="flex items-center gap-2 sm:gap-3">
-        <label className="relative hidden w-52 items-center md:flex lg:w-64">
+        {/* <label className="relative hidden w-52 items-center md:flex lg:w-64">
           <Search
             className="pointer-events-none absolute left-3 size-4 text-muted-foreground"
             aria-hidden="true"
@@ -27,7 +31,7 @@ export function CustomerTopbar({ title, user }: { title: string, user: User }) {
             placeholder="Search services"
             className="h-10 w-full rounded-lg border border-border bg-muted/30 pl-9 pr-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
           />
-        </label>
+        </label> */}
         <Button
           variant="outline"
           size="icon"
@@ -42,6 +46,7 @@ export function CustomerTopbar({ title, user }: { title: string, user: User }) {
         </Button>
         <button
           type="button"
+          onClick={() => router.push("/my-profile")}
           className="flex items-center gap-2 rounded-lg p-1.5 text-left transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="Open Jordan Davis profile"
         >

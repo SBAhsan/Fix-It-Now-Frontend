@@ -94,6 +94,12 @@ export async function proxy(request: NextRequest) {
 
   if (!userRole) return goTo("/login");
 
+  if (!userRole) {
+  const loginUrl = new URL("/login", request.url);
+  loginUrl.searchParams.set("redirect", pathname);
+  return NextResponse.redirect(loginUrl);
+}
+
   if (!allowedRoles.includes(userRole)) return goTo("/");
 
   if (accessToken && AUTH_ROUTES.includes(pathname)) {

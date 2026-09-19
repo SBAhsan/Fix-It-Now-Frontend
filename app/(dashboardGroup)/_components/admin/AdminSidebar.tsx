@@ -32,7 +32,7 @@ const mainItems: NavItem[] = [
 ];
 
 const serviceItems: NavItem[] = [
-  { label: "Service oversight", icon: ClipboardList, href: "/admin-dashboard/services", badge: "12" },
+  { label: "Service oversight", icon: ClipboardList, href: "/admin-dashboard/services" },
   { label: "Technician moderation", icon: ShieldCheck, href: "/admin-dashboard/technicians" },
 ];
 
