@@ -93,7 +93,7 @@ export default function TechnicianServiceForm({
               </SelectTrigger>
               <SelectContent>
                 {categories.map((c) => (
-                  <SelectItem key={c.id} value={c.name}>
+                  <SelectItem key={c.id} value={c.id}>
                     {c.name}
                   </SelectItem>
                 ))}

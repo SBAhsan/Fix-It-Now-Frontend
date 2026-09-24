@@ -8,6 +8,8 @@ const TechnicianServicePage = async () => {
     const services = await getMyServices();
     const categories = await getCategories();
 
+    console.log("My services are: ", services);
+
     return (
         <div className='space-y-6 py-6 px-5 overflow-y-auto'>
             <TechnicianServiceList services={services} />
