@@ -1,6 +1,6 @@
 import { getCategories } from "@/service/admin/getCategories";
 import { getMe } from "@/service/getMe";
-import Navbar from "@/components/home/navbar";
+import Navbar from "@/components/shared/navbar";
 import Hero from "@/components/home/hero";
 import HowItWorks from "@/components/home/how-it-works";
 import ForTechnicians from "@/components/home/for-technicians";

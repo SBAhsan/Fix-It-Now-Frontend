@@ -3,8 +3,7 @@ import { AdminSidebar } from "./_components/admin/AdminSidebar";
 import { getMe } from "@/service/getMe";
 import TechnicianSidebar from "./_components/technician/TechnicianSidebar";
 import CustomerSidebar from "./_components/customer/CustomerSidebar";
-import { AdminTopbar } from "./_components/admin/AdminTopbar";
-import { CustomerTopbar } from "./_components/customer/CustomerTopbar";
+import NavBar from "@/components/shared/navbar";
 
 export default async function DashboardGroupLayout({
   children,
@@ -13,19 +12,21 @@ export default async function DashboardGroupLayout({
 }) {
   const user = await getMe();
 
-  console.log("The logged in user is: ", user);
-
   return (
-    <div className="flex h-screen overflow-hidden bg-background mx-40">
-      {user?.role === "ADMIN" && <AdminSidebar user={user} />}
-      {user?.role === "TECHNICIAN" && <TechnicianSidebar />}
-      {user?.role === "CUSTOMER" && <CustomerSidebar user={user} />}
+    <div className="flex min-h-screen flex-col bg-background">
+      <NavBar user={user} />
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        {user?.role === "ADMIN" && <AdminTopbar user={user} title="Overview"/>}
-        {user?.role === "CUSTOMER" && <CustomerTopbar user={user} title="Overview"/>}
+      <div className="flex min-w-0 flex-1">
+        {user?.role === "ADMIN" && <AdminSidebar user={user} />}
+        {user?.role === "TECHNICIAN" && <TechnicianSidebar />}
+        {user?.role === "CUSTOMER" && <CustomerSidebar user={user} />}
 
-        <main className="flex-1 overflow-y-auto">{children}</main>
+        <div className="flex min-w-0 flex-1 flex-col">
+          {/* {user?.role === "TECHNICIAN" && <TechnicianMobileNav />} */}
+          <main className="flex-1 overflow-y-auto px-6 md:px-10">
+            {children}
+          </main>
+        </div>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { getServices } from "../_actions/getServices";
 import { ServiceFilters } from "../_components/services/service-filters";
 import { ServiceCard } from "../_components/services/service-card";
-import NavBar from "@/components/home/navbar";
+import NavBar from "@/components/shared/navbar";
 import { getMe } from "@/service/getMe";
 
 export default async function ServicesPage({

@@ -204,3 +204,53 @@ export type CustomerReview = {
   comment: string;
   createdAt: string;
 };
+
+export type TechnicianService = {
+  id: string;
+  title: string;
+  description: string | null;
+  price: string;
+  isActive: boolean;
+  category: { name: string };
+};
+
+export type TechnicianServiceFormValues = {
+  name: string;
+  category: string;
+  description: string;
+  price: string;
+  active: boolean;
+};
+
+export type TechnicianBookingStatus = "PENDING" | "ACCEPTED" | "DECLINED" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED";
+
+export type TechnicianBooking = {
+  id: string;
+  status: TechnicianBookingStatus;
+  scheduledDate: string;
+  scheduledTime: string;
+  workAddress: string;
+  totalAmount: string;
+  customer: { name: string };
+  bookingItems: { service: { title: string } }[];
+};
+
+export type TechnicianSlot = {
+  id: string;
+  slotDate: string;
+  slotTime: string;
+  isBooked: boolean;
+};
+
+
+
+export type TechnicianReview = {
+  id: string;
+  rating: number;
+  comment: string | null;
+  createdAt: string;
+  booking: {
+    customer: { name: string };
+    bookingItems: { service: { title: string } }[];
+  };
+};

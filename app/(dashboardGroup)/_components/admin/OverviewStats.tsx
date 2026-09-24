@@ -1,7 +1,7 @@
 "use server";
 
 import { AdminOverviewStats } from "@/lib/types";
-import { AdminStatCard } from "./AdminStatCard";
+import { StatCard } from "../StatCard";
 import { CalendarCheck, DollarSign, Users } from "lucide-react";
 
 export async function OverviewStats({ stats }: { stats: AdminOverviewStats }) {
@@ -10,9 +10,9 @@ export async function OverviewStats({ stats }: { stats: AdminOverviewStats }) {
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-      <AdminStatCard label="Total users" value={String(stats.totalUsers)} icon={Users} />
-      <AdminStatCard label="Total bookings" value={String(stats.totalBookings)} icon={CalendarCheck} />
-      <AdminStatCard label="Total revenue" value={`$ ${stats.totalRevenue.toLocaleString()}`} icon={DollarSign} />
+      <StatCard label="Total users" value={String(stats.totalUsers)} icon={Users} />
+      <StatCard label="Total bookings" value={String(stats.totalBookings)} icon={CalendarCheck} />
+      <StatCard label="Total revenue" value={`$ ${stats.totalRevenue.toLocaleString()}`} icon={DollarSign} />
     </div>
   );
 }

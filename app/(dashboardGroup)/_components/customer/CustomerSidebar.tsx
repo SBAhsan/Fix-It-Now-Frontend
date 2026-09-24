@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { User } from "@/lib/types";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   CalendarCheck,
   CircleHelp,
@@ -11,14 +12,11 @@ import {
   MessageCircle,
   Settings,
   Star,
-  UserRound,
   X,
 } from "lucide-react";
-import logo from "../../../../public/fix-it-now-logo.jpg"
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { User } from "@/lib/types";
 import { logoutActions } from "@/app/(auth)/_actions/authActions";
 
 const items = [
@@ -28,17 +26,10 @@ const items = [
   { label: "My reviews", icon: Star, href: "/dashboard/my-reviews" },
 ];
 
-export function CustomerSidebar({user} : {user : User}) {
-
-    const router = useRouter();
-
-  const [active, setActive] = useState("Dashboard");
+export function CustomerSidebar({ user }: { user: User }) {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
-
-  const select = (label: string) => {
-    setActive(label);
-    setOpen(false);
-  };
+  const close = () => setOpen(false);
 
   return (
     <>
@@ -51,34 +42,25 @@ export function CustomerSidebar({user} : {user : User}) {
       >
         <Menu data-icon="inline-start" />
       </Button>
-      {open ? (
+      {open && (
         <button
           type="button"
           aria-label="Close customer navigation"
           className="fixed inset-0 z-40 bg-foreground/20 md:hidden"
-          onClick={() => setOpen(false)}
+          onClick={close}
         />
-      ) : null}
+      )}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-transform md:static md:z-auto md:translate-x-0",
+          "fixed inset-y-0 left-0 z-50 flex h-screen w-72 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-transform md:sticky md:top-0 md:z-auto md:translate-x-0",
           open ? "translate-x-0" : "-translate-x-full",
         )}
       >
-        <div className="flex h-20 items-center justify-between border-b border-sidebar-border px-5">
-          <div className="flex items-center gap-3">
-            <div>
-              <Image src={logo} alt="fix-it-now-logo" className="h-8 w-35 bg-white"/>
-              <p className="text-[11px] text-sidebar-foreground/50">
-                Customer workspace
-              </p>
-            </div>
-          </div>
+        <div className="flex items-center justify-end p-3 md:hidden">
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden"
-            onClick={() => setOpen(false)}
+            onClick={close}
             aria-label="Close customer navigation"
           >
             <X data-icon="inline-start" />
@@ -93,37 +75,27 @@ export function CustomerSidebar({user} : {user : User}) {
           </p>
           {items.map((item) => {
             const Icon = item.icon;
-            const isActive = active === item.label;
+            const active = pathname === item.href;
             return (
-              <button
-                key={item.label}
-                type="button"
-                onClick={() => {
-                    select(item.label);
-                    router.push(item.href)
-                }}
-                aria-current={isActive ? "page" : undefined}
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={close}
+                aria-current={active ? "page" : undefined}
                 className={cn(
-                  "group flex min-h-10 items-center gap-3 rounded-lg px-3 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring",
-                  isActive
+                  "flex min-h-10 items-center gap-3 rounded-lg px-3 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring",
+                  active
                     ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm"
                     : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                 )}
               >
                 <Icon className="size-4 shrink-0" aria-hidden="true" />
                 <span className="flex-1 truncate">{item.label}</span>
-              </button>
+              </Link>
             );
           })}
         </nav>
-        <div className="flex flex-col gap-1 border-t border-sidebar-border p-3">
-          {/* <button
-            type="button"
-            className="flex min-h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-          >
-            <UserRound className="size-4" aria-hidden="true" />
-            Profile
-          </button> */}
+        <div className="shrink-0 border-t border-sidebar-border p-3">
           <button
             type="button"
             className="flex min-h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
@@ -140,7 +112,7 @@ export function CustomerSidebar({user} : {user : User}) {
           </button>
           <button
             type="button"
-            onClick={logoutActions}
+            onClick={() => logoutActions()}
             className="mt-1 flex min-h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-destructive hover:bg-destructive/10"
           >
             <LogOut className="size-4" aria-hidden="true" />

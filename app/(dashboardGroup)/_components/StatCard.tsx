@@ -1,17 +1,16 @@
 import type { LucideIcon } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 
 type AdminStatCardProps = {
   label: string;
   value: string;
-  // trend: string;
+  trend?: string;
   icon: LucideIcon;
   trendDirection?: "up" | "down";
   helperText?: string;
 };
 
-export function AdminStatCard({
+export function StatCard({
   label,
   value,
   icon: Icon,

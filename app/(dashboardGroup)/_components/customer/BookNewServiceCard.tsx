@@ -40,6 +40,7 @@ export function BookNewServiceCard() {
 
         <Button
           render={<Link href="/services" />}
+          nativeButton={false}
           variant="secondary"
           className="relative shrink-0 gap-2 self-start text-primary sm:self-center"
         >
