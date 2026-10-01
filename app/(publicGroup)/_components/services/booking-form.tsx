@@ -39,7 +39,11 @@ export function BookingForm({
       });
 
       if (res.success) {
-        router.push("/dashboard/bookings");
+        router.push("/dashboard/my-bookings");
+        toast.add({
+          type: "success",
+          title: res.message ?? "Request sent to the technician successfully",
+        });
       } else {
         toast.add({
           type: "error",

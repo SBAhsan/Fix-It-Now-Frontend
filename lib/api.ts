@@ -20,12 +20,21 @@ export const api = async (pathURL: string, options: RequestInit) => {
       ...rest,
     });
 
+    // if (!res.ok) {
+    //   const errBody = await res.json().catch(() => null);
+    //   console.log("Real backend error:", res.status, errBody);
+    //   return {
+    //     success: false,
+    //     message: errBody?.message ?? "Invalid login credentials",
+    //   };
+    // }
+
     if (!res.ok) {
       const errBody = await res.json().catch(() => null);
       console.log("Real backend error:", res.status, errBody);
       return {
         success: false,
-        message: errBody?.message ?? "Invalid login credentials",
+        message: errBody?.message || res.statusText || "Server error occurred",
       };
     }
 

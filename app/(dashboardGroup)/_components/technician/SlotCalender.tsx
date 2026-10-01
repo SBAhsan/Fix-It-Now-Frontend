@@ -47,7 +47,12 @@ export default function SlotCalendar() {
           type: "error",
           title: res.message ?? "Failed to create slot",
         });
-      else setDate(undefined);
+      else {
+        toast.add({
+          type: "success",
+          title: res.message ?? "Slot created successfully!",
+        });
+        setDate(undefined);}
     });
   }
 
