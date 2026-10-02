@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/immutability */
 "use client";
 
 import { CalendarDays, CreditCard, MapPin, Star, XCircle } from "lucide-react";
@@ -21,12 +22,12 @@ import {
 import { BookingStatus, CustomerBooking } from "@/lib/types";
 import { createPayment } from "@/service/customer/createPayment";
 import { toast } from "@/components/ui/toast";
+import { useState } from "react";
+import { ReviewDialog } from "./ReviewDialog";
 
 export type MyBookingsTableProps = {
   bookings?: CustomerBooking[];
-  onPay?: (booking: CustomerBooking) => void;
   onCancel?: (booking: CustomerBooking) => void;
-  onReview?: (booking: CustomerBooking) => void;
 };
 
 const statusLabels: Record<BookingStatus, string> = {
@@ -50,46 +51,12 @@ const statusVariants: Record<
   CANCELLED: "destructive",
 };
 
-// const defaultBookings: CustomerBooking[] = [
-//   {
-//     id: "BK-1048",
-//     service: "Air conditioner repair",
-//     technician: "Alex Morgan",
-//     scheduledAt: "Jun 18, 2026 · 10:00 AM",
-//     location: "Downtown",
-//     amount: 145,
-//     status: "ACCEPTED",
-//     paymentStatus: "UNPAID",
-//   },
-//   {
-//     id: "BK-1042",
-//     service: "Electrical inspection",
-//     technician: "Jordan Lee",
-//     scheduledAt: "Jun 21, 2026 · 2:30 PM",
-//     location: "Westside",
-//     amount: 85,
-//     status: "PENDING",
-//     paymentStatus: "UNPAID",
-//   },
-//   {
-//     id: "BK-1031",
-//     service: "Plumbing maintenance",
-//     technician: "Sam Rivera",
-//     scheduledAt: "Jun 10, 2026 · 9:00 AM",
-//     location: "Riverside",
-//     amount: 120,
-//     status: "COMPLETED",
-//     paymentStatus: "PAID",
-//     reviewed: false,
-//   },
-// ];
-
 export function MyBookingsTable({
   bookings,
-  onPay,
   onCancel,
-  onReview,
 }: MyBookingsTableProps) {
+
+  const [reviewing, setReviewing] = useState<CustomerBooking | null>(null);
 
   async function handlePay(booking: CustomerBooking) {
     const res = await createPayment(booking.id);
@@ -188,7 +155,7 @@ export function MyBookingsTable({
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => onReview?.(booking)}
+                            onClick={() => setReviewing(booking)}
                           >
                             <Star data-icon="inline-start" />
                             Review
@@ -207,6 +174,7 @@ export function MyBookingsTable({
             </TableBody>
           </Table>
         )}
+        <ReviewDialog booking={reviewing} onClose={() => setReviewing(null)} />
       </CardContent>
     </Card>
   );

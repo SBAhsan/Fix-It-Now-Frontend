@@ -133,10 +133,10 @@ export function TechnicianReviewsSummary({
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0 flex-1">
                         <h3 className="truncate font-medium">
-                          {review.booking.customer.name}
+                          {review.booking?.customer?.name ?? "Customer"}
                         </h3>
                         <p className="text-xs text-muted-foreground">
-                          {review.booking.bookingItems
+                          {review.booking?.bookingItems
                             .map((i) => i.service.title)
                             .join(", ")}
                         </p>
