@@ -67,8 +67,9 @@ export function RecentPaymentsList({
                         </Badge>
                       </div>
                       <p className="mt-1 text-sm text-muted-foreground">
-                        {new Date(payment.paidAt).toLocaleDateString()} ·{" "}
-                        {payment.transactionId}
+                        {payment.status === "COMPLETED"
+                          ? new Date(payment.paidAt).toLocaleDateString()
+                          : "Awaiting payment"}
                       </p>
                       {payment.method ? (
                         <p className="mt-1 text-xs text-muted-foreground">

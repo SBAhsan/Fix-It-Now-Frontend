@@ -36,11 +36,16 @@ const statusVariants: Record<
   CANCELLED: "destructive",
 };
 
-function nextAction(
-  status: TechnicianBookingStatus,
-): { label: string; next: TechnicianBookingStatus } | null {
-  if (status === "ACCEPTED") return { label: "Start job", next: "IN_PROGRESS" };
-  if (status === "IN_PROGRESS") return { label: "Complete", next: "COMPLETED" };
+// function nextAction(
+//   status: TechnicianBookingStatus,
+// ): { label: string; next: TechnicianBookingStatus } | null {
+//   if (status === "ACCEPTED") return { label: "Start job", next: "IN_PROGRESS" };
+//   if (status === "IN_PROGRESS") return { label: "Complete", next: "COMPLETED" };
+//   return null;
+// }
+
+function nextAction(status: TechnicianBookingStatus) {
+  if (status === "IN_PROGRESS") return { label: "Complete", next: "COMPLETED" as const };
   return null;
 }
 

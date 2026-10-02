@@ -1,6 +1,6 @@
-import React from 'react';
 import MyBookingsTable from '../../_components/customer/MyBookingsTable';
 import { getMyBookings } from '@/service/customer/getMyBookings';
+import { AutoRefresh } from '@/components/shared/AutoRefresh';
 
 const MyBookingsTablePage = async () => {
 
@@ -9,6 +9,7 @@ const MyBookingsTablePage = async () => {
     return (
         <div>
             <MyBookingsTable bookings={bookings} />
+            {/* <AutoRefresh /> */}
         </div>
     );
 };

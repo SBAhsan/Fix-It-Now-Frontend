@@ -17,7 +17,7 @@ import { User } from "@/lib/types";
 import { getDashboardPath } from "@/lib/getDashboardPath";
 import { logoutActions } from "@/app/(auth)/_actions/authActions";
 import navLogo from "../../public/fix-it-now-logo.jpg";
-import { NotificationBell } from "./NotificationBell";
+// import { NotificationBell } from "./NotificationBell";
 
 const PUBLIC_NAV = [
   { label: "How it works", href: "/#how" },
@@ -84,7 +84,7 @@ const NavBar = ({ user }: { user: User | null }) => {
                 <Bell data-icon="inline-start" />
                 
               </Button> */}
-              <NotificationBell />
+              {/* {user?.role === "TECHNICIAN" && <NotificationBell />} */}
               <DropdownMenu>
                 <DropdownMenuTrigger
                   render={

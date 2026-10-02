@@ -19,26 +19,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { BookingStatus, CustomerBooking } from "@/lib/types";
-
-// export type BookingStatus =
-//   | "PENDING"
-//   | "ACCEPTED"
-//   | "DECLINED"
-//   | "IN_PROGRESS"
-//   | "COMPLETED"
-//   | "CANCELLED";
-
-// export type CustomerBooking = {
-//   id: string;
-//   service: string;
-//   technician: string;
-//   scheduledAt: string;
-//   location: string;
-//   amount: number;
-//   status: BookingStatus;
-//   paymentStatus?: "UNPAID" | "PAID";
-//   reviewed?: boolean;
-// };
+import { createPayment } from "@/service/customer/createPayment";
+import { toast } from "@/components/ui/toast";
 
 export type MyBookingsTableProps = {
   bookings?: CustomerBooking[];
@@ -108,6 +90,16 @@ export function MyBookingsTable({
   onCancel,
   onReview,
 }: MyBookingsTableProps) {
+
+  async function handlePay(booking: CustomerBooking) {
+    const res = await createPayment(booking.id);
+    if (res.success && res.data?.url) {
+      window.location.href = res.data.url;
+    } else {
+      toast.add({ type: "error", title: res.message ?? "Payment failed" });
+    }
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -141,10 +133,8 @@ export function MyBookingsTable({
             <TableBody>
               {bookings?.map((booking) => {
                 const canPay =
-                  booking.payment?.status !== "PAID" &&
-                  ["ACCEPTED", "IN_PROGRESS", "COMPLETED"].includes(
-                    booking.status,
-                  );
+                  booking.status === "ACCEPTED" &&
+                  booking.payment?.status !== "COMPLETED";
                 const canCancel = ["PENDING", "ACCEPTED"].includes(
                   booking.status,
                 );
@@ -166,7 +156,7 @@ export function MyBookingsTable({
                       {booking.technician.user.name}
                     </TableCell>
                     <TableCell className="whitespace-nowrap text-muted-foreground">
-                      {booking.scheduledDate}
+                      {new Date(booking.scheduledDate).toLocaleDateString()}
                     </TableCell>
                     <TableCell>
                       <Badge variant={statusVariants[booking.status]}>
@@ -179,7 +169,7 @@ export function MyBookingsTable({
                     <TableCell>
                       <div className="flex justify-end gap-2">
                         {canPay ? (
-                          <Button size="sm" onClick={() => onPay?.(booking)}>
+                          <Button size="sm" onClick={() => handlePay(booking)}>
                             <CreditCard data-icon="inline-start" />
                             Pay
                           </Button>
