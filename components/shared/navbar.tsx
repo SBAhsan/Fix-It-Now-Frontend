@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Bell, LayoutDashboard, LogOut, UserRound } from "lucide-react";
+import { LayoutDashboard, LogOut, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -76,14 +76,6 @@ const NavBar = ({ user }: { user: User | null }) => {
         <div className="flex items-center gap-2">
           {user ? (
             <>
-              {/* <Button
-                variant="outline"
-                size="icon"
-                aria-label="View notifications"
-              >
-                <Bell data-icon="inline-start" />
-                
-              </Button> */}
               {/* {user?.role === "TECHNICIAN" && <NotificationBell />} */}
               <DropdownMenu>
                 <DropdownMenuTrigger

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import TechnicianProfileForm from "./TechnicianProfileForm";
+import { TechnicianReview } from "@/lib/types";
 
 type Profile = {
   bio: string | null;
@@ -18,10 +19,16 @@ type Profile = {
 
 export default function TechnicianProfileView({
   profile,
+  reviews
 }: {
-  profile: Profile;
+  profile: Profile,
+  reviews: TechnicianReview[]
 }) {
   const [editing, setEditing] = useState(false);
+
+  const avgRating = reviews.length
+  ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
+  : "0.0";
 
   if (editing) {
     return (
@@ -62,8 +69,8 @@ export default function TechnicianProfileView({
           <div>
             <p className="text-muted-foreground">Rating</p>
             <p className="font-medium">
-              {profile.avgRating} ({profile.totalReviews})
-            </p>
+  {avgRating} ({reviews.length})
+</p>
           </div>
         </div>
       </CardContent>
