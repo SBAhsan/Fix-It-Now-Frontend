@@ -1,8 +1,37 @@
+import { api } from "@/lib/api";
 import Link from "next/link";
 
-export default function PaymentSuccessPage() {
-  return <div className="flex flex-col items-center justify-center">
-  <p className="p-10 text-center">Payment successful. Check your bookings.</p>
-  <Link href={"/dashboard/my-bookings"} className="text-cyan-500">Go to bookings</Link>
-  </div>
+export default async function PaymentSuccessPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ bookingId?: string }>;
+}) {
+  const { bookingId } = await searchParams;
+
+  const res = bookingId
+    ? await api("/api/payments/confirm", {
+        method: "POST",
+        body: JSON.stringify({ bookingId }),
+      })
+    : null;
+
+  if (!res?.success) {
+    return (
+      <>
+        <p className="p-10 text-center">
+          Couldn&apos;t confirm payment: {res?.message ?? "missing bookingId"}
+        </p>
+        <Link href={"/dashboard/my-bookings"}></Link>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <p className="p-10 text-center">
+        Payment successful. Your booking is now in progress.
+      </p>
+      <Link href={"/dashboard/my-bookings"}></Link>
+    </>
+  );
 }
