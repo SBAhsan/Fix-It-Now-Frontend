@@ -17,21 +17,21 @@ export default async function PaymentSuccessPage({
 
   if (!res?.success) {
     return (
-      <>
+      <div className="flex flex-col items-center justify-center">
         <p className="p-10 text-center">
           Couldn&apos;t confirm payment: {res?.message ?? "missing bookingId"}
         </p>
         <Link href={"/dashboard/my-bookings"}></Link>
-      </>
+      </div>
     );
   }
 
   return (
-    <>
+    <div className="flex flex-col items-center justify-center">
       <p className="p-10 text-center">
         Payment successful. Your booking is now in progress.
       </p>
       <Link href={"/dashboard/my-bookings"}></Link>
-    </>
+    </div>
   );
 }
