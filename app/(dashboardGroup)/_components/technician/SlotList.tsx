@@ -19,6 +19,11 @@ import { toast } from "@/components/ui/toast";
 export default function SlotList({ slots }: { slots: TechnicianSlot[] }) {
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [now] = useState(() => Date.now());
+
+  const upcomingSlots = slots.filter(
+    (slot) => new Date(slot.slotTime).getTime() > now,
+  );
 
   function toggleBooked(slot: TechnicianSlot) {
     setPendingId(slot.id);
@@ -42,12 +47,12 @@ export default function SlotList({ slots }: { slots: TechnicianSlot[] }) {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
-        {slots.length === 0 ? (
+        {upcomingSlots.length === 0 ? (
           <p className="rounded-lg border border-dashed px-4 py-8 text-center text-sm text-muted-foreground">
             No availability slots yet.
           </p>
         ) : (
-          slots.map((slot) => (
+          upcomingSlots.map((slot) => (
             <div
               key={slot.id}
               className="flex flex-col gap-3 rounded-xl border border-border/70 p-4 sm:flex-row sm:items-center sm:justify-between"

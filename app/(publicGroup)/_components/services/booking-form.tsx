@@ -24,6 +24,11 @@ export function BookingForm({
   } | null>(null);
   const [address, setAddress] = useState("");
   const [isPending, startTransition] = useTransition();
+  const [now] = useState(() => Date.now());
+
+  const upcomingSlots = service.technician.availabilitySlots.filter(
+    (slot) => new Date(slot.slotTime).getTime() > now,
+  );
 
   function handleBook() {
     if (!selectedSlot || !address) return;
@@ -56,8 +61,14 @@ export function BookingForm({
   return (
     <div className="rounded-xl border p-5">
       <h3 className="mb-4 font-medium">Pick a time slot</h3>
-      <ServiceSlotPicker
+      {/* <ServiceSlotPicker
         slots={service.technician.availabilitySlots}
+        selectedSlotId={selectedSlot?.id ?? null}
+        onSelect={setSelectedSlot}
+      /> */}
+
+      <ServiceSlotPicker
+        slots={upcomingSlots}
         selectedSlotId={selectedSlot?.id ?? null}
         onSelect={setSelectedSlot}
       />
