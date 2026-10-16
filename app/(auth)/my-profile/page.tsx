@@ -1,7 +1,7 @@
 import React from 'react';
 import { getMe } from '@/service/getMe';
 import MyProfile from '../_components/MyProfile';
-import NavBar from '@/components/shared/navbar';
+import NavBar from '@/components/shared/NavBar';
 
 const MyProfilePage = async () => {
 

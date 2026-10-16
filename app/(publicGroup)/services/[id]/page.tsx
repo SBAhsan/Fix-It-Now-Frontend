@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { getServiceById } from "../../_actions/getServiceById";
 import { BookingForm } from "../../_components/services/booking-form";
 import { getMe } from "@/service/getMe";
+import { BackButton } from "@/components/shared/BackButton";
 
 export default async function ServiceDetailPage({
   params,
@@ -27,17 +28,9 @@ export default async function ServiceDetailPage({
 
   return (
     <div className="min-h-screen bg-muted/20">
-      <div className="mx-auto max-w-6xl px-6 py-8">
-        <Link
-          href="/services"
-          className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to services
-        </Link>
-
+      <div className="mx-auto px-6 py-8">
+        <BackButton />
         <div className="grid gap-8 md:grid-cols-3">
-          {/* Main column */}
           <div className="md:col-span-2">
             <div className="rounded-2xl border bg-card p-6 md:p-8">
               <Badge variant="outline" className="mb-3">
@@ -65,7 +58,6 @@ export default async function ServiceDetailPage({
               )}
             </div>
 
-            {/* Technician card */}
             <div className="mt-6 rounded-2xl border bg-card p-6 md:p-8">
               <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                 About the technician

@@ -1,11 +1,13 @@
-import React from 'react';
+import { getAllUsers } from "@/service/admin/getUsers";
+import TechnicianModeration from "../../_components/admin/TechnicianModeration";
 
-const AdminTechnicianPage = () => {
-    return (
-        <div>
-            Technicians
-        </div>
-    );
+const AdminTechnicianModerationPage = async () => {
+  const users = await getAllUsers();
+  const technicians = users.filter((u) => u.role === "TECHNICIAN");
+
+  return <div className="pt-6">
+    <TechnicianModeration technicians={technicians} />
+  </div>
 };
 
-export default AdminTechnicianPage;
+export default AdminTechnicianModerationPage;

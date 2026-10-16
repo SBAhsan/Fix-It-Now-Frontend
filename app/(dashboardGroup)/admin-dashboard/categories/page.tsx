@@ -6,7 +6,7 @@ const AdminCategoriesPage = async () => {
 
     const allCategories = await getCategories();
     return (
-        <div>
+        <div className='pt-6'>
             <AdminCategoryTable allCategories={allCategories} />
         </div>
     );

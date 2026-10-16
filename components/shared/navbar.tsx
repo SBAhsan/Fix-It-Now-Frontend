@@ -17,7 +17,6 @@ import { User } from "@/lib/types";
 import { getDashboardPath } from "@/lib/getDashboardPath";
 import { logoutActions } from "@/app/(auth)/_actions/authActions";
 import navLogo from "../../public/fix-it-now-logo.jpg";
-// import { NotificationBell } from "./NotificationBell";
 
 const PUBLIC_NAV = [
   { label: "How it works", href: "/#how" },
@@ -29,18 +28,18 @@ const ROLE_NAV: Record<string, { label: string; href: string }[]> = {
   ADMIN: [
     { label: "Users", href: "/admin-dashboard/users" },
     { label: "Categories", href: "/admin-dashboard/categories" },
-    { label: "Services", href: "/admin-dashboard/services" },
-    { label: "Technicians", href: "/admin-dashboard/technician-moderation" },
+    { label: "Services", href: "/admin-dashboard/service-oversight" },
+    { label: "Technicians", href: "/admin-dashboard/technicians" },
   ],
   TECHNICIAN: [
-    { label: "My services", href: "/technician-dashboard/services" },
+    { label: "My services", href: "/technician-dashboard/my-services" },
     { label: "Bookings", href: "/technician-dashboard/bookings" },
     { label: "Availability", href: "/technician-dashboard/availability" },
   ],
   CUSTOMER: [
     { label: "Browse services", href: "/services" },
-    { label: "My bookings", href: "/dashboard/bookings" },
-    { label: "My reviews", href: "/dashboard/reviews" },
+    { label: "My bookings", href: "/dashboard/my-bookings" },
+    { label: "My reviews", href: "/dashboard/my-reviews" },
   ],
 };
 

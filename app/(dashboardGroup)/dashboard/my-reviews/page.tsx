@@ -7,7 +7,7 @@ const MyReviewsPage = async () => {
     const reviews = await getMyReviews();
 
     return (
-        <div>
+        <div className='pt-8'>
             <MyReviewsList reviews={reviews} />
         </div>
     );

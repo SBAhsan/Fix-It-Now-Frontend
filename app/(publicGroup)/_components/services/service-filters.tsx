@@ -24,8 +24,8 @@ export function ServiceFilters() {
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
       <Input
         placeholder="Search services..."
-        defaultValue={searchParams.get("searchTerm") ?? ""}
-        onChange={(e) => updateParam("searchTerm", e.target.value)}
+        defaultValue={searchParams.get("searchItem") ?? ""}
+        onChange={(e) => updateParam("searchItem", e.target.value)}
         className="sm:max-w-xs"
       />
       <Input
@@ -35,8 +35,8 @@ export function ServiceFilters() {
         className="sm:max-w-40"
       />
       <Select
+        value={searchParams.get("rating")}
         onValueChange={(v) => updateParam("rating", v as string)}
-        defaultValue={searchParams.get("rating") ?? ""}
       >
         <SelectTrigger className="sm:max-w-40">
           <SelectValue placeholder="Min rating" />

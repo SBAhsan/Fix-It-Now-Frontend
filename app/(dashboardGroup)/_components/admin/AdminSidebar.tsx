@@ -36,7 +36,7 @@ const serviceItems: NavItem[] = [
   {
     label: "Service oversight",
     icon: ClipboardList,
-    href: "/admin-dashboard/services",
+    href: "/admin-dashboard/service-oversight",
   },
   {
     label: "Technician moderation",
@@ -156,14 +156,6 @@ export function AdminSidebar({ user }: { user: User }) {
           >
             <CircleHelp className="size-4" aria-hidden="true" />
             Help center
-          </button>
-          <button
-            type="button"
-            onClick={() => logoutActions()}
-            className="mt-1 flex min-h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-destructive hover:bg-destructive/10"
-          >
-            <LogOut className="size-4" aria-hidden="true" />
-            Sign out
           </button>
         </div>
       </aside>

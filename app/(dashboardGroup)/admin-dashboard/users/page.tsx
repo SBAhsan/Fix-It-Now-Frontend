@@ -9,7 +9,7 @@ const AdminUsersPage = async () => {
     // console.log("Fetched Users: ", users);
 
     return (
-        <div>
+        <div className='pt-6'>
             <UserTable users={users} />
         </div>
     );

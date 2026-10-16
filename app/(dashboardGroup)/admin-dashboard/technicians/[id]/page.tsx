@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { AdminTechnicianProfileCard } from "@/app/(dashboardGroup)/_components/admin/AdminTechnicianProfileCard";
 import { getTechnicianProfile } from "@/service/admin/getTechnicianProfile";
+import { BackButton } from "@/components/shared/BackButton";
 
 export default async function AdminTechnicianProfilePage({
   params,
@@ -15,14 +14,8 @@ export default async function AdminTechnicianProfilePage({
   if (!technician) notFound();
 
   return (
-    <div className="mx-auto max-w-3xl p-6">
-      <Link
-        href="/admin-dashboard/users"
-        className="mb-4 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-      >
-        <ArrowLeft className="size-4" />
-        Back to users
-      </Link>
+    <div className="mx-auto p-6">
+      <BackButton />
       <AdminTechnicianProfileCard technician={technician} />
     </div>
   );

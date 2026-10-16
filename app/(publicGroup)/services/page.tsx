@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { getServices } from "../_actions/getServices";
 import { ServiceFilters } from "../_components/services/service-filters";
 import { ServiceCard } from "../_components/services/service-card";
-import NavBar from "@/components/shared/navbar";
+import NavBar from "@/components/shared/NavBar";
 import { getMe } from "@/service/getMe";
 
 export default async function ServicesPage({
@@ -15,7 +15,7 @@ export default async function ServicesPage({
   const user = await getMe();
 
   return (
-    <div className="mx-40 px-6">
+    <div className=" px-6">
       <NavBar user={user} />
       <div className="py-10">
         <h1 className="mb-6 text-2xl font-bold">Available services</h1>

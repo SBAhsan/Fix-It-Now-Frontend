@@ -8,8 +8,6 @@ export async function getAllUsers() : Promise<AdminUser[]> {
         cache: "no-store"
     });
 
-    // console.log("Res Data: ", res.data);
-
     if(!res.success) return [];
 
     return res.data;

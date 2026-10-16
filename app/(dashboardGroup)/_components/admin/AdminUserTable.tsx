@@ -56,6 +56,16 @@ export function UserTable({ users }: { users: AdminUser[] }) {
     [query, role],
   );
 
+  const formatDate = (dateString : string) => {
+    const date = new Date(dateString);
+
+    return new Intl.DateTimeFormat("en-GB",{
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    }).format(date).replace(/\//g, "-");
+  }
+
   return (
     <section
       className="rounded-xl border border-border/70 bg-card p-5 shadow-sm"
@@ -118,6 +128,7 @@ export function UserTable({ users }: { users: AdminUser[] }) {
               <TableHead>User</TableHead>
               <TableHead>Role</TableHead>
               <TableHead>Status</TableHead>
+              <TableHead>Joined at</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -151,7 +162,7 @@ export function UserTable({ users }: { users: AdminUser[] }) {
                     </Badge>
                   </TableCell>
                   <TableCell className="text-muted-foreground">
-                    {user.createdAt}
+                    {formatDate(user.createdAt)}
                   </TableCell>
                   <TableCell className="text-right">
                     <DropdownMenu>

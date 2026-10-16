@@ -7,7 +7,6 @@ import {
   CalendarCheck,
   CircleHelp,
   Home,
-  LogOut,
   Menu,
   MessageCircle,
   Settings,
@@ -17,12 +16,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { User } from "@/lib/types";
-import { logoutActions } from "@/app/(auth)/_actions/authActions";
 
 const items = [
   { label: "Dashboard", icon: Home, href: "/dashboard" },
   { label: "My bookings", icon: CalendarCheck, href: "/dashboard/my-bookings" },
-  { label: "Messages", icon: MessageCircle, href: "/dashboard/messages" },
   { label: "My reviews", icon: Star, href: "/dashboard/my-reviews" },
 ];
 
@@ -109,14 +106,6 @@ export function CustomerSidebar({ user }: { user: User }) {
           >
             <CircleHelp className="size-4" aria-hidden="true" />
             Help center
-          </button>
-          <button
-            type="button"
-            onClick={() => logoutActions()}
-            className="mt-1 flex min-h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-destructive hover:bg-destructive/10"
-          >
-            <LogOut className="size-4" aria-hidden="true" />
-            Sign out
           </button>
         </div>
       </aside>

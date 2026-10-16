@@ -128,14 +128,6 @@ export function TechnicianSidebar() {
             <CircleHelp className="size-4" aria-hidden="true" />
             Help center
           </button>
-          <button
-            type="button"
-            onClick={() => logoutActions()}
-            className="mt-1 flex min-h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-destructive hover:bg-destructive/10"
-          >
-            <LogOut className="size-4" aria-hidden="true" />
-            Sign out
-          </button>
         </div>
       </aside>
     </>

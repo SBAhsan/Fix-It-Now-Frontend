@@ -1,10 +1,15 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { User } from "@/lib/types";
+import { getServices } from "@/app/(publicGroup)/_actions/getServices";
 
-const ForTechnicians = ({ user }: { user: User | null }) => {
+const ForTechnicians = async ({ user }: { user: User | null }) => {
   const isTechnician = user?.role === "TECHNICIAN";
   const showRegisterCta = !user;
+
+  const services = await getServices();
+  const technicianCount = new Set(services.map((s) => s.technician.id)).size;
+  const categoryCount = new Set(services.map((s) => s.category.id)).size;
 
   return (
     <section id="technicians" className="mx-auto max-w-6xl px-6 py-8">
@@ -42,16 +47,16 @@ const ForTechnicians = ({ user }: { user: User | null }) => {
         </div>
 
         <dl className="space-y-4">
-          <Stat label="Avg. rating across technicians" value="4.8" />
-          <Stat label="Median time to first booking" value="2 days" />
-          <Stat label="Categories covered" value="12" />
+          <Stat label="Technicians on the platform" value={technicianCount} />
+          <Stat label="Services listed" value={services.length} />
+          <Stat label="Categories covered" value={categoryCount} />
         </dl>
       </div>
     </section>
   );
 };
 
-function Stat({ label, value }: { label: string; value: string }) {
+function Stat({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="flex items-baseline justify-between border-b border-slate-700 pb-3">
       <dt className="text-xs text-slate-400">{label}</dt>

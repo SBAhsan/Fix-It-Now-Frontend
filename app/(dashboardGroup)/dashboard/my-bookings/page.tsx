@@ -6,7 +6,7 @@ const MyBookingsTablePage = async () => {
     const bookings = await getMyBookings();
 
     return (
-        <div>
+        <div className='pt-8'>
             <MyBookingsTable bookings={bookings} />
         </div>
     );

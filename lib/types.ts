@@ -4,11 +4,13 @@ export type PublicService = {
   description: string | null;
   price: string;
   isActive: boolean;
+  createdAt: string;
   category: { id: string; name: string };
   technician: {
     id: string;
     city: string;
     avgRating: string;
+    experienceYears: number;
     user: { name: string };
   };
 };

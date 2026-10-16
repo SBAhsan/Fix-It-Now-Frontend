@@ -3,7 +3,7 @@ import { AdminSidebar } from "./_components/admin/AdminSidebar";
 import { getMe } from "@/service/getMe";
 import TechnicianSidebar from "./_components/technician/TechnicianSidebar";
 import CustomerSidebar from "./_components/customer/CustomerSidebar";
-import NavBar from "@/components/shared/navbar";
+import NavBar from "@/components/shared/NavBar";
 
 export default async function DashboardGroupLayout({
   children,
@@ -13,7 +13,7 @@ export default async function DashboardGroupLayout({
   const user = await getMe();
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className=" flex min-h-screen flex-col bg-background">
       <NavBar user={user} />
 
       <div className="flex min-w-0 flex-1">
