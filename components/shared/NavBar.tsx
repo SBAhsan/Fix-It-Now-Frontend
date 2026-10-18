@@ -17,6 +17,7 @@ import { User } from "@/lib/types";
 import { getDashboardPath } from "@/lib/getDashboardPath";
 import { logoutActions } from "@/app/(auth)/_actions/authActions";
 import navLogo from "../../public/fix-it-now-logo.jpg";
+import { NotificationBell } from "./NotificationBell";
 
 const PUBLIC_NAV = [
   { label: "How it works", href: "/#how" },
@@ -75,7 +76,7 @@ const NavBar = ({ user }: { user: User | null }) => {
         <div className="flex items-center gap-2">
           {user ? (
             <>
-              {/* {user?.role === "TECHNICIAN" && <NotificationBell />} */}
+              {user?.role === "TECHNICIAN" && <NotificationBell />}
               <DropdownMenu>
                 <DropdownMenuTrigger
                   render={

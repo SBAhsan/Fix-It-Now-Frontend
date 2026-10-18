@@ -14,7 +14,6 @@ export default async function DashboardGroupLayout({
 
   return (
     <div className=" flex min-h-screen flex-col bg-background">
-      <NavBar user={user} />
 
       <div className="flex min-w-0 flex-1">
         {user?.role === "ADMIN" && <AdminSidebar user={user} />}
