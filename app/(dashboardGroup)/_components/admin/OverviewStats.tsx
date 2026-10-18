@@ -6,8 +6,6 @@ import { CalendarCheck, DollarSign, Users } from "lucide-react";
 
 export async function OverviewStats({ stats }: { stats: AdminOverviewStats }) {
 
-    console.log("The stats are: ", stats);
-
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
       <StatCard label="Total users" value={String(stats.totalUsers)} icon={Users} />

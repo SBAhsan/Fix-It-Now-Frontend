@@ -5,8 +5,6 @@ import { revalidatePath } from "next/cache";
 
 export async function createCategory(formData: FormData) {
 
-  console.log("Raw isActive value:", formData.get("isActive"));
-
   const name = formData.get("name");
     const description = formData.get("description");
     const isActive = formData.get("isActive") === "on";

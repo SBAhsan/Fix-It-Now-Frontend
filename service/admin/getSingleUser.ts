@@ -7,8 +7,6 @@ export async function getSingleUser(userId: string) {
         cache: "no-store"
     });
 
-    // console.log("Res Data: ", res.data);
-
     if(!res.success) return null;
 
     return res.data;

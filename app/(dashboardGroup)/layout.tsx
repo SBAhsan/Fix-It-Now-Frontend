@@ -22,7 +22,6 @@ export default async function DashboardGroupLayout({
         {user?.role === "CUSTOMER" && <CustomerSidebar user={user} />}
 
         <div className="flex min-w-0 flex-1 flex-col">
-          {/* {user?.role === "TECHNICIAN" && <TechnicianMobileNav />} */}
           <main className="flex-1 overflow-y-auto px-6 md:px-10">
             {children}
           </main>

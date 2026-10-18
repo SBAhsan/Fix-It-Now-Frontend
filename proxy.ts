@@ -10,12 +10,7 @@ const AUTH_ROUTES = ["/login", "/register"];
 
 const PUBLIC_ROUTES = ["/"];
 
-// const ADMIN_ROUTES = ["/admin-dashboard"];
-// const TECHNICIAN_ROUTES = ["/technician-dashboard"];
-// const CUSTOMER_ROUTES = ["/dashboard"];
-
 const ROLE_BASED_ROUTES: Record<string, UserRole[]> = {
-//   "/dashboard": ["ADMIN", "TECHNICIAN", "CUSTOMER"],
   "/admin-dashboard": ["ADMIN"],
   "/technician-dashboard": ["TECHNICIAN"],
   "/dashboard": ["CUSTOMER"],
@@ -57,8 +52,6 @@ export async function proxy(request: NextRequest) {
         sameSite: "lax",
       });
 
-      console.log("access: ",accessToken);
-
       accessToken = newAccessToken;
 
       verifiedAccessToken = (verifyToken(
@@ -67,8 +60,6 @@ export async function proxy(request: NextRequest) {
       ));
     }
   }
-
-  // console.log("The verified token: ", verifiedAccessToken);
 
   let userRole = null;
 
@@ -79,12 +70,6 @@ export async function proxy(request: NextRequest) {
   if (verifiedAccessToken?.success && verifiedAccessToken.data) {
     userRole = verifiedAccessToken.data.role;
   }
-
-  // const role = decodeToken(request.cookies.get("accessToken")!.value)?.role;
-
-  // if(AUTH_ROUTES.includes(pathname)){
-  //     return role ? goTo("/dashboard") : NextResponse.next();
-  // }
 
   const allowedRoles = Object.entries(ROLE_BASED_ROUTES).find(([route]) =>
     matches(pathname, route),
@@ -109,10 +94,7 @@ export async function proxy(request: NextRequest) {
       return goTo("/admin-dashboard");
     } else if (userRole === "TECHNICIAN") {
       return goTo("/technician-dashboard");
-    } 
-    // else {
-    //   return goTo("/");
-    // }
+    }
   }
 }
 

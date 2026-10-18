@@ -7,8 +7,6 @@ export async function deleteTechnician(technicianId: string) {
         method: "DELETE"
     });
 
-    // console.log("Res Data: ", res.data);
-
     if(!res.success) return null;
 
     return res;

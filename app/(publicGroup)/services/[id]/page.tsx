@@ -100,7 +100,6 @@ export default async function ServiceDetailPage({
             </div>
           </div>
 
-          {/* Sticky booking sidebar */}
           <div>
             <div className="sticky top-24">
               <BookingForm service={service} user={user} />

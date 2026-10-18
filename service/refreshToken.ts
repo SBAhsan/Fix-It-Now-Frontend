@@ -10,8 +10,6 @@ export const getNewAccessToken = async () => {
 
     const refreshToken = cookieStore.get("refreshToken")?.value;
 
-    // console.log("access token: ", accessToken);
-
     if(!refreshToken) return null;
 
     const res = await api("/api/auth/me", {
@@ -22,14 +20,5 @@ export const getNewAccessToken = async () => {
         }
     })
 
-    // console.log("The response is: ", res);
-
     if(res.success) return res.data;
-
-    // const verifiedAccessToken = verifyToken(
-    //     refreshToken as string,
-    //     process.env.JWT_REFRESH_SECRET as string,
-    //   ) as JwtPayload;
-
-    // return verifiedAccessToken as User;
 }

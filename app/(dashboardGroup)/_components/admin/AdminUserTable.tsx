@@ -183,7 +183,6 @@ export function UserTable({ users }: { users: AdminUser[] }) {
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onClick={() => {
-                            console.log("Edit Status clicked for:", user.name);
                             setEditingUser(user);
                           }}
                         >

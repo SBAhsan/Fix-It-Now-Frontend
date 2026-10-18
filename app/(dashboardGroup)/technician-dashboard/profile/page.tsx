@@ -3,10 +3,10 @@ import TechnicianProfileForm from "../../_components/technician/TechnicianProfil
 import DeleteTechnicianProfileDialog from "../../_components/technician/DeleteTechnicianProfileDialog";
 import TechnicianProfileView from "../../_components/technician/TechnicianProfileView";
 import { getMyReviews } from "@/service/technician/getReviews";
+
 export default async function TechnicianProfilePage() {
   const profile = await getMyTechnicianProfile();
   const reviews = await getMyReviews();
-   console.log("Technician profile fetched:", profile);
 
   if (!profile) {
     return (

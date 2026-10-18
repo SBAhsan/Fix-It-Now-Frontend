@@ -11,9 +11,6 @@ export async function getOverviewStats(): Promise<AdminOverviewStats> {
     api("/api/payments", { cache: "no-store" }),
   ]);
 
-  console.log("Users response from get overview stats: ", usersRes);
-  console.log("Payments response from get overview stats: ", paymentsRes);
-
   const totalUsers = usersRes.success ? usersRes.data.length : 0;
   const totalBookings = bookingsRes.success ? bookingsRes.data.length : 0;
 

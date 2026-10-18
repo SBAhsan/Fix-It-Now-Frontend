@@ -6,8 +6,6 @@ const AdminUsersPage = async () => {
 
     const users = await getAllUsers();
 
-    // console.log("Fetched Users: ", users);
-
     return (
         <div className='pt-6'>
             <UserTable users={users} />

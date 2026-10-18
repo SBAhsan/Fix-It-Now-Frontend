@@ -8,7 +8,6 @@ import {
   CircleHelp,
   Home,
   Menu,
-  MessageCircle,
   Settings,
   Star,
   X,

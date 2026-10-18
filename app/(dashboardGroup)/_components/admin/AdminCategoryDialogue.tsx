@@ -27,12 +27,8 @@ export function AdminCategoryDialog() {
 
     const formData = new FormData(event.currentTarget);
 
-    console.log("The form data are: ", formData);
-
     startTransition(async () => {
         const res = await createCategory(formData);
-
-        console.log("Created category info: ", res);
 
         if(res.success) {
             setOpen(false);

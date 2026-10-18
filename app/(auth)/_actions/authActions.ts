@@ -77,8 +77,6 @@ export const registerActions = async (
   const user = (await setAuthCookies(login.data)) as DecodedTokenPayload;
   const role = user.data.role;
 
-  console.log("Type of role value: ", typeof role);
-
   if (role === "ADMIN") {
     redirect("/admin-dashboard");
   } else if (role === "TECHNICIAN") {
@@ -108,8 +106,6 @@ export const loginActions = async (
     }),
   });
 
-  console.log("Response: ", res);
-
   if (!res.success) {
     return {
       success: false,
@@ -119,9 +115,6 @@ export const loginActions = async (
 
   const user = (await setAuthCookies(res.data)) as DecodedTokenPayload;
   const role = user.data.role;
-
-  console.log("The role of current user is: ", role);
-  console.log("Type of role value: ", typeof role);
 
   if (redirectTo) {
     redirect(redirectTo);
