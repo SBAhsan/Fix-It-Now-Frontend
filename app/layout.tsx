@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
 
-  const user = await getMe();
+  // const user = await getMe();
   
   return (
     <html
@@ -34,9 +34,9 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, manropeHeading.variable)}
     >
       <body className="min-h-full flex flex-col">
-        <NavBar user={user} />
+        {/* <NavBar user={user} /> */}
         {children}
-        <Footer />
+        {/* <Footer /> */}
         </body>
       <Toaster />
     </html>

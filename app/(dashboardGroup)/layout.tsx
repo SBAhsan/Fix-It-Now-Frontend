@@ -4,6 +4,7 @@ import { getMe } from "@/service/getMe";
 import TechnicianSidebar from "./_components/technician/TechnicianSidebar";
 import CustomerSidebar from "./_components/customer/CustomerSidebar";
 import NavBar from "@/components/shared/NavBar";
+import Footer from "@/components/shared/Footer";
 
 export default async function DashboardGroupLayout({
   children,
@@ -13,7 +14,9 @@ export default async function DashboardGroupLayout({
   const user = await getMe();
 
   return (
-    <div className=" flex min-h-screen flex-col bg-background">
+    <div>
+      <NavBar user={user}/>
+      <div className=" flex min-h-screen flex-col bg-background">
 
       <div className="flex min-w-0 flex-1">
         {user?.role === "ADMIN" && <AdminSidebar user={user} />}
@@ -26,6 +29,8 @@ export default async function DashboardGroupLayout({
           </main>
         </div>
       </div>
+    </div>
+    <Footer />
     </div>
   );
 }

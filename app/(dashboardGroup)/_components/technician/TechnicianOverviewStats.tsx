@@ -1,11 +1,12 @@
 "use client";
 
-import { CalendarClock, Clock3, Star } from "lucide-react";
+import { CalendarClock, Clock3, Star, Wallet } from "lucide-react";
 import { StatCard } from "../StatCard";
 
 type TechnicianBooking = {
   status: string;
   scheduledAt?: string | Date;
+  totalAmount?: string;
 };
 
 type TechnicianReview = {
@@ -32,9 +33,15 @@ export default function TechnicianOverviewStats({
   reviews = [],
 }: TechnicianOverviewStatsProps) {
   const upcomingJobs = bookings.filter(isUpcomingBooking).length;
+
   const pendingRequests = bookings.filter(
     (booking) => booking.status === "PENDING",
   ).length;
+
+  const totalEarnings = bookings
+    .filter((booking) => booking.status === "COMPLETED")
+    .reduce((total, booking) => total + Number(booking.totalAmount ?? 0), 0);
+
   const averageRating = reviews.length
     ? reviews.reduce((total, review) => total + review.rating, 0) /
       reviews.length
@@ -43,11 +50,17 @@ export default function TechnicianOverviewStats({
   return (
     <section
       aria-labelledby="technician-overview-stats"
-      className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
+      className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
     >
       <h2 id="technician-overview-stats" className="sr-only">
         Technician overview statistics
       </h2>
+      <StatCard
+        label="Total earnings"
+        value={`$${totalEarnings.toLocaleString()}`}
+        icon={Wallet}
+        helperText="From completed jobs"
+      />
       <StatCard
         label="Upcoming jobs"
         value={String(upcomingJobs)}
