@@ -10,8 +10,6 @@ export const getMe = async () : Promise<User | null> => {
 
     const accessToken = cookieStore.get("accessToken")?.value;
 
-    // console.log("access token: ", accessToken);
-
     if(!accessToken) return null;
 
     const res = await api("/api/auth/me", {
@@ -20,8 +18,6 @@ export const getMe = async () : Promise<User | null> => {
             Authorization: `Bearer ${accessToken}`
         }
     })
-
-    // console.log("The response is: ", res);
 
     if(res.success) return res.data;
 
