@@ -8,7 +8,7 @@ export async function getOverviewStats(): Promise<AdminOverviewStats> {
   const [usersRes, bookingsRes, paymentsRes] = await Promise.all([
     api("/api/admin/users", { cache: "no-store" }),
     api("/api/admin/bookings", { cache: "no-store" }),
-    api("/api/payments", { cache: "no-store" }),
+    api("/api/admin/payments", { cache: "no-store" })
   ]);
 
   const totalUsers = usersRes.success ? usersRes.data.length : 0;
