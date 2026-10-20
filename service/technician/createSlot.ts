@@ -1,7 +1,6 @@
 "use server";
 
 import { api } from "@/lib/api";
-import { TechnicianSlot } from "@/lib/types";
 import { revalidatePath } from "next/cache";
 
 export async function createSlot(payload: { slotDate: string; slotTime: string; isBooked: boolean }) {

@@ -14,7 +14,7 @@ export function calculateTrendPercent(bookingData: MonthlyBookingCount[]): {
   const change = ((current - previous) / previous) * 100;
 
   return {
-    percent: Math.abs(Math.round(change * 10) / 10), // one decimal place
+    percent: Math.abs(Math.round(change * 10) / 10),
     direction: change >= 0 ? "up" : "down",
   };
 }

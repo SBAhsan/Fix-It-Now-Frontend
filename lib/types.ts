@@ -15,6 +15,15 @@ export type PublicService = {
   };
 };
 
+export type PublicTechnician = {
+  id: string;
+  bio: string | null;
+  skills: string[];
+  city: string;
+  experienceYears: number;
+  user?: { name: string };
+};
+
 
 export type RegisterState = {
   success: boolean;
@@ -48,15 +57,6 @@ export type AdminUser = {
   status: UserStatus;
   createdAt: string;
 };
-
-// export type AdminProfileUser = {
-//   id: string;
-//   name: string;
-//   email: string;
-//   role: UserRole;
-//   status: UserStatus;
-//   joined: string;
-// };
 
 export type Category = {
   id: string;
@@ -185,7 +185,7 @@ export type PaymentStatus = "PENDING" | "COMPLETED" | "FAILED" | "REFUNDED";
 export type CustomerPayment = {
   id: string;
   transactionId: string;
-  amount: string; // Decimal → string over JSON
+  amount: string;
   method: string | null;
   provider: "Stripe" | "SSLcommerz";
   status: PaymentStatus;

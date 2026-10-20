@@ -1,7 +1,4 @@
 import { api } from "@/lib/api";
-import { verifyToken } from "@/lib/jwt";
-import { User } from "@/lib/types";
-import { JwtPayload } from "jsonwebtoken";
 import { cookies } from "next/headers";
 
 export const getNewAccessToken = async () => {
