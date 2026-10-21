@@ -88,7 +88,7 @@ function NavSection({
   );
 }
 
-export function AdminSidebar({ user }: { user: User }) {
+export function AdminSidebar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);

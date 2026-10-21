@@ -9,7 +9,6 @@ import {
   CreditCard,
   Home,
   Menu,
-  Receipt,
   Settings,
   Star,
   X,
@@ -25,7 +24,7 @@ const items = [
   { label: "My reviews", icon: Star, href: "/dashboard/my-reviews" },
 ];
 
-export function CustomerSidebar({ user }: { user: User }) {
+export function CustomerSidebar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
