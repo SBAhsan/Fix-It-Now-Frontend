@@ -182,6 +182,22 @@ export type CustomerBooking = {
 
 export type PaymentStatus = "PENDING" | "COMPLETED" | "FAILED" | "REFUNDED";
 
+// export type CustomerPayment = {
+//   id: string;
+//   transactionId: string;
+//   amount: string;
+//   method: string | null;
+//   provider: "Stripe" | "SSLcommerz";
+//   status: PaymentStatus;
+//   paidAt: string;
+//   booking: {
+//     id: string;
+//     scheduledDate: string;
+//     workAddress: string;
+//     status: string;
+//   };
+// };
+
 export type CustomerPayment = {
   id: string;
   transactionId: string;
@@ -195,6 +211,15 @@ export type CustomerPayment = {
     scheduledDate: string;
     workAddress: string;
     status: string;
+    // 🌟 Add the nested service and technician structures here:
+    service: {
+      title: string;
+    };
+    technician: {
+      user: {
+        name: string;
+      };
+    };
   };
 };
 

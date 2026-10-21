@@ -6,8 +6,10 @@ import { usePathname } from "next/navigation";
 import {
   CalendarCheck,
   CircleHelp,
+  CreditCard,
   Home,
   Menu,
+  Receipt,
   Settings,
   Star,
   X,
@@ -19,6 +21,7 @@ import { User } from "@/lib/types";
 const items = [
   { label: "Dashboard", icon: Home, href: "/dashboard" },
   { label: "My bookings", icon: CalendarCheck, href: "/dashboard/my-bookings" },
+  { label: "Payment history", icon: CreditCard, href: "/dashboard/payment-history" },
   { label: "My reviews", icon: Star, href: "/dashboard/my-reviews" },
 ];
 
