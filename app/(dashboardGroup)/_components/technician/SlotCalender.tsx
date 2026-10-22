@@ -25,7 +25,7 @@ import { toast } from "@/components/ui/toast";
 export default function SlotCalendar() {
   const [date, setDate] = useState<Date>();
   const [time, setTime] = useState("09:00");
-  const [isBooked, setIsBooked] = useState(false);
+  const [isBooked] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {

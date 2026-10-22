@@ -19,9 +19,9 @@ export default async function DashboardGroupLayout({
       <div className=" flex min-h-screen flex-col bg-background">
 
       <div className="flex min-w-0 flex-1">
-        {user?.role === "ADMIN" && <AdminSidebar user={user} />}
+        {user?.role === "ADMIN" && <AdminSidebar />}
         {user?.role === "TECHNICIAN" && <TechnicianSidebar />}
-        {user?.role === "CUSTOMER" && <CustomerSidebar user={user} />}
+        {user?.role === "CUSTOMER" && <CustomerSidebar />}
 
         <div className="flex min-w-0 flex-1 flex-col">
           <main className="flex-1 overflow-y-auto px-6 md:px-10">
