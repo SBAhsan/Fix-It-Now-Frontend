@@ -23,15 +23,7 @@ import {
 } from "@/components/ui/table";
 import { toast } from "@/components/ui/toast";
 import { AdminUser } from "@/lib/types";
-import { setUserStatus } from "@/service/admin/setUserStatus";
-
-type Technician = {
-  id: string;
-  name: string;
-  email: string;
-  phone?: string | null;
-  isBanned: boolean;
-};
+import { updateUserStatus } from "@/service/admin/updateUserStatus";
 
 export default function TechnicianModeration({
   technicians,
@@ -46,7 +38,7 @@ export default function TechnicianModeration({
     const banned = tech.status === "BANNED";
     setBusyId(tech.id);
     startTransition(async () => {
-      const res = await setUserStatus(tech.id, banned ? "UNBANNED" : "BANNED");
+      const res = await updateUserStatus(tech.id, banned ? "UNBANNED" : "BANNED");
       if (res.success) {
         toast.add({
           type: "success",
